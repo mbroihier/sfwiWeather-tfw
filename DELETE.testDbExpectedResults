@@ -1,0 +1,4 @@
+DELETE-010
+Pressing delete will delete entries specified in the ticker symbol field from the portfolio.
+DELETE-020
+If the ticker symbol field is null, pressing the delete button will do nothing.

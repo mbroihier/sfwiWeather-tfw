@@ -1,0 +1,18 @@
+{
+  "name": "tfw",
+  "version": "1.0.0",
+  "description": "This application supports a test framework for the RTNV project",
+  "main": "editor-server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "jsdom": "^11.1.0",
+    "ws": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Broihier",
+  "license": "MIT"
+}

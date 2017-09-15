@@ -1,0 +1,2 @@
+PERF-010: RTNV-PERF-010, RTNV-PROV-020, RTNV-PR-CNV-010, RTNV-EXT-IF-060
+The objective of this test case is to verify that the app can update a portfolio populated to the maximum required size within the time limit of the requirements.

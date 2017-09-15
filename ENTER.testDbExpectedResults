@@ -1,0 +1,10 @@
+ENTER-010
+With normal entry of a stock into the portfolio, the stock will be entered, the public server will retrieve the last closing price, and the stock will stored into the persistent database.  The pressing of "Next" will illustrate that the stock was read from the database and that the public query will have updated the closing value.
+ENTER-020
+With entry of a ticker that doesn't match anything accessible by the public server, the closing value will be displayed as "Not found".
+ENTER-030
+Pressing enter with no stock ticker does nothing.
+ENTER-040
+If the number of shares is not defined by the operator, the default number of shares is zero.
+ENTER-050
+If a duplicate ticker is entered, the new definition overides the old definition.

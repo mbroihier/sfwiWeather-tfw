@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+DELETE-010</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+Pressing &quot;Delete&quot;, deletes the stock displayed from the portfolio</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>When the delete button is pressed, rtnv shall remove the persistent copy of the stock referenced by the ticker symbol in the display.</li></ul>
+<p>This test case verifies that pressing the delete key when a portfolio entry is displayed removes that entry from the portfolio.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li></li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> Delete the app from the target device.   </li><li> Compile and load rtnv onto the target Android device.   </li><li> Verify the compile completes with no errors.   </li><li> Verify the installation completes with no errors.   </li><li> Select the &quot;Ticker Symbol&quot; field and enter the ticker value of AAPL.   </li><li> Select the &quot;Number of Shares&quot; field and enter the value 200.   </li><li> Press the &quot;Enter&quot; button.   </li><li> Select the &quot;Ticker Symbol&quot; field and enter the ticker value of INTC.   </li><li> Select the &quot;Number of Shares&quot; field and enter the value 500.   </li><li> Press the &quot;Enter&quot; button.   </li><li> Press the &quot;Next&quot; button and verify that the symbol AAPL is displayed with 200 shares and that a non zero value is displayed for the last closing price of the stock.  </li><li> Press the &quot;Delete&quot; button and verify that the screen is &quot;blanked&quot;.   </li><li> Press the &quot;Next&quot; button and verify that the symbol INTC is displayed with 500 shares and that a non zero value is displayed for the last closing price of the stock.  </li><li> Press the &quot;Delete&quot; button and verify that the screen is &quot;blanked&quot;. </li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+Pressing delete will delete entries specified in the ticker symbol field from the portfolio.</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+PASSED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li>Unnecessary</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+RTNV-PR-DELETE-010</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+INIT-0010</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+Initialization with no existing SQLite database</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>When the app is started by selecting from the Android app selection menu, the app shall do the following:</li><li>If the portfolio database does not exist, the app shall create the database and then display a blanked main menu.</li><li>rtnv shall initialize and create an empty portfolio if none exists (first time run on the device).</li><li>rtnv shall use SQLite to create a persistent store of the portfolio on the target device.</li></ul>
+<p>The objective of this test case is to verify the above requirements.  This test will be executed the first time the app is loaded onto the Android device.  At that point, no portfolio will exist so the image of it, the SQLite database, will be created and will contain no stock entries.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li>Android device with version 4.2 or greater is attached to the Android development system.  There is no copy of rtnv installed on the device.</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> Compile and load rtnv onto the target Android device.  </li><li> Verify the compile completes with no errors.  </li><li> Verify the installation completes with no errors.  </li><li> Verify that a screen is displayed that has a text field for the ticker symbol, a text field for the number of shares, and a text field for the value of each share.  </li><li> Verify that there are four buttons: Enter, Delete, Next, and Calculate Net Value.  </li><li> Verify that no runtime errors are splashed to the screen. </li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+With this being the first time the app has run on the device, the database should be created and the main menu should be void of valid stock entries.</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+PASSED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li>Unnecessary</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+RTNV-PR-INIT-010, RTNV-PR-INIT-010.001, RTNV-PROV-010, RTNV-EXT-IF-070</td>
+</tr>
+</table>
+</body>
+</html>

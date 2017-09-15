@@ -1,0 +1,4 @@
+DELETE-010: RTNV-PR-DELETE-010
+This test case verifies that pressing the delete key when a portfolio entry is displayed removes that entry from the portfolio.
+DELETE-020: RTNV-PR-DELETE-020
+This test case verifies that pressing the delete key when the ticker field is null does nothing.

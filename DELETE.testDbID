@@ -1,0 +1,4 @@
+DELETE-010
+Pressing "Delete", deletes the stock displayed from the portfolio
+DELETE-020
+Pressing "Delete", when there is nothing on the display does nothing

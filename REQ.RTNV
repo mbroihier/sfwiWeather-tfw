@@ -1,0 +1,54 @@
+RTNV-EXT-IF-010
+rtnv shall have a displayable and editable field that allows a user to enter stock ticker symbols.
+RTNV-EXT-IF-020
+rtnv shall have a displayable and editable field that allows a user to enter the number of shares owned of a given ticker symbol.
+RTNV-EXT-IF-030
+rtnv shall have a displayable field that shows the value of a stock share identified by the displayed ticker.
+RTNV-EXT-IF-040
+rtnv shall have a displayable field that shows the net value of the portfolio stored in the persistent database.
+RTNV-EXT-IF-050
+rtnv shall have buttons labeled “enter”, “delete”, “next”, and “calculate net value” that conform to the processing requirements identified below.
+RTNV-EXT-IF-060
+rtnv shall use a public server such as Yahoo finance to retrieve the closing prices of stocks identified by the ticker symbols.  Note: this is a demonstration app only and is not meant to be massively distributed for large scale use.
+RTNV-EXT-IF-070
+rtnv shall use SQLite to create a persistent store of the portfolio on the target device.
+RTNV-PR-INIT-010
+When the app is started by selecting from the Android app selection menu, the app shall do the following:
+RTNV-PR-INIT-010.001
+If the portfolio database does not exist, the app shall create the database and then display a blanked main menu.
+RTNV-PR-INIT-010.002
+If the portfolio database does exist, the app shall query the public server to retrieve and store the latest closing price for each stock ticker in the portfolio and then display a blanked main menu.
+RTNV-PR-ENTER-010
+When the enter button is pressed, rtnv shall send a retrieve request to the public server if the ticker field is not empty.
+RTNV-PR-ENTER-010.001
+rtnv shall store a persistent copy of the ticker, number of shares, and value of each share in the persistent database.
+RTNV-PR-ENTER-010.002
+The ticker shall be the primary and unique key of the persistent store (previous definitions will be replaced).
+RTNV-PR-ENTER-010.003
+rtnv shall store zero as the number of shares if the number of shares was not entered by the user.
+RTNV-PR-ENTER-010.004
+rtnv shall store zero as the value of a share if the value can not be retrieved by the public server.
+RTNV-PR-ENTER-010.005
+rtnv shall clear the ticker, number of shares, and value of each share fields at completion of processing.
+RTNV-PR-ENTER-020
+When the enter button is pressed, rtnv shall do nothing if the ticker field is empty.
+RTNV-PR-DELETE-010
+When the delete button is pressed, rtnv shall remove the persistent copy of the stock referenced by the ticker symbol in the display.
+RTNV-PR-DELETE-020
+When the delete button is pressed, rtnv shall do nothing if the ticker field is empty.
+RTNV-PR-NEXT-010
+ When the next button is pressed and it is the first press after any other button press, rtnv shall display the first stock in the the persistent copy of the portfolio.
+RTNV-PR-NEXT-020
+ When the next button is pressed and it is not the first button press, rtnv shall display the next stock in the persistent copy of the portfolio.
+RTNV-PR-NEXT-020.001
+ If there are no remaining stocks to display, the display fields for ticker, number of shares and value of shares shall be blanked.
+RTNV-PR-NEXT-020.003
+ If there are no remaining stocks to display and the display has already been blanked, rtnv shall display the first stock in the persistent copy of the portfolio.
+RTNV-PR-CNV-010
+ When the calculate net value button is pressed, the sum of the products of the number of shares and value of each share shall be calcuated and that total displayed (in dollar format) in the calculated net value display field.
+RTNV-PROV-010
+ rtnv shall initialize and create an empty portfolio if none exists (first time run on the device).
+RTNV-PROV-020
+ rtnv shall be able to store at least 20 stocks in the portfolio.
+RTNV-PERF-010
+ rtnv shall be able to display the main menu within 20 seconds of selecting the app from the Android menu given 20 stocks in the portfolio and access to the internet.

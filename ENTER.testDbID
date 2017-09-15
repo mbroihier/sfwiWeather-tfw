@@ -1,0 +1,10 @@
+ENTER-010
+Pressing Enter when there is a Valid Ticker Symbol and Valid Number of Shares
+ENTER-020
+Pressing Enter when there is an  Invalid Ticker Symbol
+ENTER-030
+Pressing Enter when there is no Ticker Symbol
+ENTER-040
+Pressing Enter when there is a Valid Ticker Symbol but no Number of Shares Entered
+ENTER-050
+Pressing Enter when there is a Valid Ticker Symbol that matches a previously entered Ticker Symbol

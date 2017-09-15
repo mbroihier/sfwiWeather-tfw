@@ -1,0 +1,6 @@
+INIT-0010
+With this being the first time the app has run on the device, the database should be created and the main menu should be void of valid stock entries.
+INIT-0020
+This being the second time the app has run on the device, the database should be there but empty.  Pressing the next button the first time shows that.  Pressing the next button after an entry is inserted then displays a stock entry, but since the ticker is not a valid stock ticker, no value for the stock can be displayed.
+INIT-0030
+This being after the first time the app has run and after a stock has been entered, this shows that the stock has been inserted into the portfolio and is available on subsequent runs of the app.

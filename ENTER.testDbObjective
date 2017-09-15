@@ -1,0 +1,10 @@
+ENTER-010: RTNV-PR-ENTER-010, RTNV-PR-ENTER-010.001, RTNV-PR-ENTER-010.005
+The objective of this test case is to verify the requirements identified above which cover the normal entry of a stock into the portfolio.
+ENTER-020: RTNV-PR-ENTER-010, RTNV-PR-ENTER-010.001, RTNV-PR-ENTER-010.004, RTNV-PR-ENTER-010.005
+The objective of this test case is to verify the requirements identified above which cover the entry of a stock into the portfolio which does not match an entry that can be retrieved by the public server.
+ENTER-030: RTNV-PR-ENTER-020
+The objective of this test case is to verify the requirements identified above which cover the entry of a "null" stock into the portfolio.
+ENTER-040: RTNV-PR-ENTER-010, RTNV-PR-ENTER-010.001, RTNV-PR-ENTER-010.003, RTNV-PR-ENTER-010.005
+The objective of this test case is to verify the requirements identified above which cover the entry of a stock into the portfolio which exists in the public server, but the user did not specify the number of shares in the portfolio.
+ENTER-050: RTNV-PR-ENTER-010, RTNV-PR-ENTER-010.001, RTNV-PR-ENTER-010.002, RTNV-PR-ENTER-010.005
+The objective of this test case is to verify the requirements identified above which cover the entry of a stock into the portfolio which exists in the portfolio.  The old entry should be removed and replaced by the new entry.

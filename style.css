@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+    color: #0F0;
+    font-family: verdana;
+}
+
+body input,
+body label {
+    display: block;
+}
+
+h1 {
+    text-align: center;
+}
+table {
+    width: 90%;
+}
+
+table,td,tr,th {
+   empty-cells: show;
+   border: 2px solid #000;
+   border-collapse: collapse;
+   
+}
+.failed { color: red }

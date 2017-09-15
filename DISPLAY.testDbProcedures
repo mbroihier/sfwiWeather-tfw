@@ -1,0 +1,8 @@
+DISPLAY-010
+/step Delete the app from the target device. \step /step Compile and load rtnv onto the target Android device. \step /step Verify the compile completes with no errors. \step /step Verify the installation completes with no errors. \step /step Verify that a screen is displayed that has a text field for the ticker symbol, a text field for the number of shares, and a text field for the value of each share. \step /step Verify that there are four buttons: Enter, Delete, Next, and Calculate Net Value. \step /step Verify that no runtime errors are splashed to the screen. \step /step Select the "Stock ticker" (Ticker Symbol) field. \step /step Verify that a keyboard is displayed and that characters (A-Z) and numbers (0-9) can be entered to construct ticker symbols. \step
+DISPLAY-020
+/step Using the display initiated by test case DISPLAY-010, select the "Number of shares field" (Number of Shares). \step /step Verify a numeric keypad is displayed and that numbers (0-9) and the decimal point (.) can be entered. \step
+DISPLAY-030
+/step Using the display initiated by test case DISPLAY-010, attempt to select the "Value of a share field" (Value of Each Share). \step /step Verify it is not selectable. \step
+DISPLAY-040
+/step Using the display initiated by test case DISPLAY-010, attempt to select the "Net value field" (Calculated Net Value). \step /step Verify it is not selectable. \step

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no" />
+  <meta charset="utf-8">
+  <title>Log Entry</title>
+    <style>
+        label {
+            display: block;
+        }
+	input { width: 20%;
+                font-size: 1em; }
+	.data-block { width: 80%;
+	        font-size: 1em;
+                    }
+	body { background-color: white; 
+	       font-family: sans-serif;
+	       font-size: 1em;}
+    </style>
+    <script src="validate.js" defer></script>
+</head>
+<body>
+    <h1>Log Entry</h1>
+
+    <form action="/log_entry.html"" method="post">
+
+        <label for="testID">Test ID</label>
+        <input type="text" id="testID" name="testID" required />
+
+        <label for="testStartTime">Test Start Time</label>
+        <input type="date" id="testStartTime" name="testStartTime" required />
+
+        <label for="testData">Test Data</label>
+        <textArea name="testData" class="data-block" id="testData" rows="20" cols="80"></textArea>
+        <label for="results">Test Case Status</label>
+        <label for="results1">PASSED</label>
+        <input type="radio" id="results1" name="results" value="PASSED" required />
+        <label for="results1">FAILED</label>
+        <input type="radio" id="results2" name="results" value="FAILED" required />
+        <label for="results1">UNTESTED</label>
+        <input type="radio" id="results3" name="results" value="UNTESTED" required />
+
+        <label for="testEndTime">Test End Time</label>
+        <input type="date" id="testEndTime" name="testEndTime" required />
+
+        <label for="tester">Tester</label>
+        <input type="text" id="tester" name="tester" required />
+
+        <button>Send</button>
+
+    </form>
+</body>
+</html>

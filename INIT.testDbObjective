@@ -1,0 +1,6 @@
+INIT-0010: RTNV-PR-INIT-010, RTNV-PR-INIT-010.001, RTNV-PROV-010, RTNV-EXT-IF-070
+The objective of this test case is to verify the above requirements.  This test will be executed the first time the app is loaded onto the Android device.  At that point, no portfolio will exist so the image of it, the SQLite database, will be created and will contain no stock entries.
+INIT-0020: RTNV-PR-INIT-010, RTNV-PR-INIT-010.002
+The objective of this test case is to verify the above requirements.  This test will be executed following the first time the app is loaded onto the Android device.  At that point, a portfolio will not exist so no database creation will be necessary.
+INIT-0030: RTNV-PR-INIT-010, RTNV-PR-INIT-010.002
+The objective of this test case is to verify the above requirements.  This test will be executed following the first time the app is loaded onto the Android device.  At that point, a portfolio will exist so no database creation will be necessary and previously existing entries will be accessible.

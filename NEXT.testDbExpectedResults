@@ -1,0 +1,4 @@
+NEXT-010
+When the first "Next" of a button push sequence is entered, the first entry of the portfolio is entered.
+NEXT-020
+When a series of "Next" presses are made, the app advances through the portfolio displaying the next stock in the portfolio until it is depleted and then a "blank" screen is presented.

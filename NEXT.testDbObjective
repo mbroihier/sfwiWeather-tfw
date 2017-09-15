@@ -1,0 +1,4 @@
+NEXT-010: RTNV-PR-NEXT-010
+This test case verifies that the app displays the first entry of the portfolio if it is the first "Next" press in a sequence of other actions.
+NEXT-020: RTNV-PR-NEXT-020, RTNV-PR-NEXT-020.001, RTNV-PR-NEXT-020.003
+This test case verifies that subsequent button presses display successive portfolio entries and then a "blank" screen when the portfolio has been completely displayed.

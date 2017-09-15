@@ -1,0 +1,8 @@
+DISPLAY-010
+The field that contains the ticker symbol should be editable with the ability to enter alpha numeric characters into the field.  There should be "enter", "delete", "next", and "calculate net value" buttons.
+DISPLAY-020
+The field that contains the number of shares should allow the user to enter whole and factional values that store the number of shares held in the portfolio. 
+DISPLAY-030
+The value of each share field is display only.
+DISPLAY-040
+The net value field is display only.

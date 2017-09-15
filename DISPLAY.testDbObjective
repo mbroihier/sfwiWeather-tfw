@@ -1,0 +1,8 @@
+DISPLAY-010: RTNV-EXT-IF-010, RTNV-EXT-IF-050
+The objective of this test case is to verify that the requirements specified above related to the attributes of the stock ticker field are implemented and funtioning.
+DISPLAY-020: RTNV-EXT-IF-020
+The objective of this test case is to verify that the requirements specified above related to the attributes of the stock number of shares field are implemented and funtioning.
+DISPLAY-030: RTNV-EXT-IF-030
+The objective of this test case is to verify that the requirements specified above related to the attributes of the value of each share field are implemented and funtioning.
+DISPLAY-040: RTNV-EXT-IF-040
+The objective of this test case is to verify that the requirements specified above related to the attributes of the net value field are implemented and funtioning.
