@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 from xml.dom.minidom import parse
 from xml.dom.minidom import Document
 import sys
@@ -7,7 +7,7 @@ import os
 # utility to print the nodes of a document
 def printNodes(head):
     for node in head:
-        print (node)
+        print node
         if node.hasChildNodes():
             children = node.childNodes
             printNodes(children)
@@ -27,7 +27,7 @@ def findElementById(head,iD):
 # This class handles the requirements that are tested in the test category (section) that is being built
 class Requirements:
     # constructor if a requirement list is given
-    def __init__ (self,requirementsInThisTest=None):
+    def __init__ (self, requirementsInThisTest = None):
 
         self.requirements = {}
     
@@ -41,15 +41,18 @@ class Requirements:
     
     # add a requirement to the database
     def addRequirement(self,r):
+        import codecs
         # note, since the file will be open, all of the requirements in the file will be added in
         # case they are needed in the future (likely)
         requirementPath = "REQ." + r.split("-")[0]
-        requirementFile = open(requirementPath,"r")
-        requirementID = requirementFile.readline().strip()
+        requirementFile = codecs.open(requirementPath, "r", encoding="utf-8")
+        requirementID = requirementFile.readline().strip().encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
         while requirementID != "":
             requirementText = requirementFile.readline().strip()
-            self.requirements[requirementID] = requirementText
-            requirementID = requirementFile.readline().strip()
+            #print(type(requirementText))
+            self.requirements[requirementID] = requirementText.encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
+            #print(type(self.requirements[requirementID]))
+            requirementID = requirementFile.readline().strip().encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
         requirementFile.close()
 
     # add a list of requirements to the database

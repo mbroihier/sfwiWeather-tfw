@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 from buildHTMLSection import Document
 from buildHTMLSection import Requirements
 from buildHTMLSection import Objective

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 #Created on Apr 23, 2017
 #
 #@author: broihier
