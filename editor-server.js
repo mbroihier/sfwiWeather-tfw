@@ -145,9 +145,10 @@ app.get("/*/*.html", function(request, response, next) {
 	let insertionPoint = document.querySelector("body");
 	let scriptElement = document.createElement("script");
 	scriptElement.setAttribute("type","text/javascript");
+	let adapt = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
+		"var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");"
 	scriptElement.innerHTML = 
-		"var hostName = location.hostname;" +
-		"var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" +
+		"var hostName = location.hostname;" + adapt +
 		"var ws = new WebSocket(\"ws://\" + hostName + \":3001\");" +
 		"ws.onmessage = function(message) {"+
 		" console.log(\"got this message:\" + message.data);" + 
