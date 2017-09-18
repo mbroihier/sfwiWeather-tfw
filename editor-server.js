@@ -1,5 +1,40 @@
 // Test case editor server - helps edit test cases
 // Setup all required packages
+
+// Object definition for holding Complex Paragraphs - object factory
+var complexParagraph = function() { return Object.create({ ids : "",
+		text : "", 
+		steps: [{line : "", bullets : []}],
+		add : function(id, text) {
+			this.ids = id;
+			this.text = text;
+			for (let step of text.split("/step ")) {
+				step = step.replace(/\\step */, "");
+				this.steps.push({ line : step, bullets : step.split("/bullet ")});
+			};
+			for (step of this.steps) {
+				for (bullet of step.bullets) {
+					bullet = bullet.replace(/\\bullet */,"");
+				}
+			}
+		},
+		toString : function() {
+			let fullParagraph = "";
+			for (let step of this.steps) {
+				fullParagraph += step.line + "\n";
+				let first = true;
+				for (let bullet of step.bullets) {
+					if (first) {
+						first = false;
+						continue;
+					}
+					fullParagraph += "    " + bullet + "\n";
+				}
+			}
+			return fullParagraph;
+		}
+});};
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require("fs");
@@ -129,6 +164,9 @@ app.get("/*/*.html", function(request, response, next) {
 		insertionPoint.innerHTML = jsonDb[category]['testDbPre'][theCase];
 		insertionPoint = document.querySelector("#procedures");
 		insertionPoint.innerHTML = jsonDb[category]['testDbProcedures'][theCase];
+		var actions = complexParagraph();
+		actions.add(theCase, jsonDb[category]['testDbProcedures'][theCase]);
+		insertionPoint.innerHTML = actions.toString();
 		insertionPoint = document.querySelector("#expectedResults");
 		insertionPoint.innerHTML = jsonDb[category]['testDbExpectedResults'][theCase];
 		insertionPoint = document.querySelector("#results");
