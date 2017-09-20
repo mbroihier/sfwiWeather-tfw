@@ -2,11 +2,12 @@
 // Setup all required packages
 
 // Object definition for holding Complex Paragraphs - object factory
-var complexParagraph = function() { return Object.create({ ids : "",
+var complexParagraph = function() { return Object.create({ id : "",
 		text : "", 
 		steps: [{line : "", bullets : []}],
+		index : 0,
 		add : function(id, text) {
-			this.ids = id;
+			this.id = id;
 			this.text = text;
 			for (let step of text.split("/step ")) {
 				step = step.replace(/\\step */, "");
@@ -17,6 +18,12 @@ var complexParagraph = function() { return Object.create({ ids : "",
 					bullet = bullet.replace(/\\bullet */,"");
 				}
 			}
+		},
+		reset : function() {
+			this.index = 0;
+		},
+		getStep : function() {
+			return this.steps[this.index++];
 		},
 		toString : function() {
 			let fullParagraph = "";
@@ -167,6 +174,13 @@ app.get("/*/*.html", function(request, response, next) {
 		var actions = complexParagraph();
 		actions.add(theCase, jsonDb[category]['testDbProcedures'][theCase]);
 		insertionPoint.innerHTML = actions.toString();
+		let step;
+		insertionPoint = document.querySelector("#steps");
+		while ((step = actions.getStep()) != undefined) {
+			let div = document.createElement("div");
+			div.innerHTML = step.line;
+			insertionPoint.appendChild(div);
+		}
 		insertionPoint = document.querySelector("#expectedResults");
 		insertionPoint.innerHTML = jsonDb[category]['testDbExpectedResults'][theCase];
 		insertionPoint = document.querySelector("#results");
