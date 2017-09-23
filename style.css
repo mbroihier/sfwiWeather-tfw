@@ -9,6 +9,10 @@ body label {
     display: block;
 }
 
+#steps input {
+    float: left;
+}
+
 h1 {
     text-align: center;
 }
