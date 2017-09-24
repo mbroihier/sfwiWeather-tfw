@@ -3,7 +3,9 @@ window.onload = function() {
   let stepTextElements = document.getElementsByTagName("textarea");
   let re = /step\d+/;
   console.log("Number of input elements found: " + inputElements.length);
-  for (let element of inputElements) {
+  //for (let element of inputElements) { this isn't working on Safari
+  for (let index = 0; index < inputElements.length; index++) {
+    let element = inputElements[index];
     console.log("processing: " + element + " " + stepTextElements.length);
     let textStepElement;
     if (element.hasAttribute("name")) {
