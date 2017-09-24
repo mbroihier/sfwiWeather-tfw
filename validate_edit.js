@@ -16,7 +16,7 @@ window.onload = function() {
           console.log("from: " + this.getAttribute("name"));
           if (this.hasAttribute("checked")) {
             this.removeAttribute("checked");
-            textStepElement.setAttribute("style", "text-decoration: line-through red");
+            textStepElement.setAttribute("style", "text-decoration: line-through; color: red");
             console.log("turning off check");
           } else {
             this.setAttribute("checked", "");
