@@ -79,7 +79,7 @@ var jsonDb = null;
 var fileHandles = [];
 var testDocumentID = 0;
 // start a Web Socket Server
-var wss = new WebSocketServer({port: 3001});
+var wss = new WebSocketServer({port: process.env.PORT || 3001});
 wss.on("connection", function(connection) {
     relay.push(connection); // store for communication
     connection.send("connected");
@@ -132,20 +132,20 @@ app.post('/test_case*', function(request, response, next){
     console.log(request.body.title);
     jsonDb[category]['testDbID'][request.body.testCaseID] = request.body.title;
     console.log(request.body.setup);
-    jsonDb[category]['testDbPre'][request.body.testCaseID] = request.body.setup;
+    jsonDb[category]['testDbPre'][request.body.testCaseID] = request.body.setup.replace(/\r\n/g,"/hr");
     console.log(request.body.objective);
-    jsonDb[category]['testDbObjective'][request.body.testCaseID] = request.body.objective;
+    jsonDb[category]['testDbObjective'][request.body.testCaseID] = request.body.objective.replace(/\r\n/g,"");
     let line = 1;
     let bulletLine = 1;
     let procedures = "";
     while ("stepLine" + line in request.body) {
       if ("step" + line in request.body) {
-        procedures += "/step " + request.body["stepLine" + line] + "\\step ";
+        procedures += "/step " + request.body["stepLine" + line].replace(/\r\n/g,"") + "\\step ";
       }
       line++;
       while ("bulletLine" + bulletLine in request.body) {
         if ("bullet" + bulletLine in request.body) {
-          procedures += "/bullet " + request.body["bulletLine" + bulletLine] + "\\bullet ";
+          procedures += "/bullet " + request.body["bulletLine" + bulletLine].replace(/\r\n/g,"") + "\\bullet ";
         }
         bulletLine++;
       }
@@ -153,13 +153,13 @@ app.post('/test_case*', function(request, response, next){
     console.log(procedures);
     jsonDb[category]['testDbProcedures'][request.body.testCaseID] = procedures;
     console.log(request.body.expectedResults);
-    jsonDb[category]['testDbExpectedResults'][request.body.testCaseID] = request.body.expectedResults;
+    jsonDb[category]['testDbExpectedResults'][request.body.testCaseID] = request.body.expectedResults.replace(/\r\n/g,"");
     console.log(request.body.results);
     jsonDb[category]['testDbResults'][request.body.testCaseID] = request.body.results;
     console.log(request.body.cleanup);
-    jsonDb[category]['testDbPost'][request.body.testCaseID] = request.body.cleanup;
+    jsonDb[category]['testDbPost'][request.body.testCaseID] = request.body.cleanup.replace(/\r\n/g,"/hr");
     console.log(request.body.requirements);
-    jsonDb[category]['requirements'][request.body.testCaseID] = request.body.requirements;
+    jsonDb[category]['requirements'][request.body.testCaseID] = request.body.requirements.replace(/\r\n/g,"");
     convertJSONToDb(jsonDb, function() {
         execSync("touch updated")});
     response.set("Connection","close");
@@ -247,11 +247,13 @@ app.get("/*/*.html", function(request, response, next) {
     let insertionPoint = document.querySelector("body");
     let scriptElement = document.createElement("script");
     scriptElement.setAttribute("type","text/javascript");
-    let adapt = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
+    let adaptHTTP = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
       "var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");";
+    let adaptWSS = process.env.PORT ? "var ws = new WebSocket(\"wss://\" + hostName:" + process.env.PORT + ")" : "var ws = new WebSocket(\"ws://\" + hostName + \":3001\");";
+
     scriptElement.innerHTML = 
-      "var hostName = location.hostname;" + adapt +
-      "var ws = new WebSocket(\"ws://\" + hostName + \":3001\");" +
+      "var hostName = location.hostname;" + adaptHTTP + adaptWSS +
+      //"var ws = new WebSocket(\"ws://\" + hostName + \":3001\");" +
       "ws.onmessage = function(message) {"+
       " console.log(\"got this message:\" + message.data);" + 
       " if (message.data === \"refresh\") {" +
