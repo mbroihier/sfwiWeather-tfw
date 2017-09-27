@@ -113,17 +113,17 @@ var convertJSONToDb = function (jsonDb, callback) {
   for (let category in jsonDb) {
     console.log(category);
     for (let paragraph in jsonDb[category]) {
-      console.log("   " + paragraph);
+      //console.log("   " + paragraph);
       let fileHandle = fs.openSync(category + "." + paragraph, "w");
       for (let paragraphInfo in jsonDb[category][paragraph]) {
         if (paragraph == "testDbObjective") {
-          console.log("      " + paragraphInfo + ": " + jsonDb[category]['requirements'][paragraphInfo]);
+          //console.log("      " + paragraphInfo + ": " + jsonDb[category]['requirements'][paragraphInfo]);
           fs.writeSync(fileHandle, paragraphInfo + ":" + jsonDb[category]['requirements'][paragraphInfo] + "\n");
         } else {
-          console.log("      " + paragraphInfo);
+          //console.log("      " + paragraphInfo);
           fs.writeSync(fileHandle, paragraphInfo + "\n");
         }
-        console.log("      " + jsonDb[category][paragraph][paragraphInfo]);
+        //console.log("      " + jsonDb[category][paragraph][paragraphInfo]);
         fs.writeSync(fileHandle, jsonDb[category][paragraph][paragraphInfo] + "\n");
       }
       fs.closeSync(fileHandle);
