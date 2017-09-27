@@ -250,7 +250,7 @@ app.get("/*/*.html", function(request, response, next) {
     scriptElement.setAttribute("type","text/javascript");
     let adaptHTTP = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
       "var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");";
-    let adaptWSS = process.env.PORT ? "var ws = new WebSocket(\"wss://\" + hostName + \":\" + process.env.PORT + \");" :
+    let adaptWSS = process.env.PORT ? "var ws = new WebSocket(\"wss://\" + hostName + \":" + process.env.PORT + "\");" :
     	"var ws = new WebSocket(\"ws://\" + hostName + \":3000\");";
 
     scriptElement.innerHTML = 
