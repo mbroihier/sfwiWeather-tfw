@@ -1,6 +1,6 @@
 // Test case editor server - helps edit test cases
 // Setup all required packages
-
+'use strict';
 // Object definition for holding Complex Paragraphs - object factory
 var complexParagraph = function() { return Object.create({ id : "",
         text : "", 
@@ -78,24 +78,10 @@ var jsonFullBuffer;
 var jsonDb = null;
 var fileHandles = [];
 var testDocumentID = 0;
+
 // start a Web Socket Server
 //var wss = new WebSocketServer({port: process.env.PORT || 3001});
-//var wss = new WebSocketServer({app});
-//wss.on("connection", function(connection) {
-//    relay.push(connection); // store for communication
-//    connection.send("connected");
-//    connection.on("message", function (message) {
-//        if (message === "exit") {
-//          relay.splice(relay.indexOf(connection), 1);
-//          connection.close();
-//        }
-//      });
-//    connection.on("close", function(message) {
-//        relay.splice(relay.indexOf(connection), 1);
-//        connection.close();
-//        console.log("closing a connection");
-//      });
-//  });
+// above didn't work on Heroku
 // check for changes to the test database every second
 setInterval(function(){
     let changed = false;
@@ -251,11 +237,11 @@ app.get("/*/*.html", function(request, response, next) {
     let adaptHTTP = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
       "var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");";
     let adaptWSS = process.env.PORT ? "var ws = new WebSocket(\"wss://\" + hostName + \":" + process.env.PORT + "\");" :
-    	"var ws = new WebSocket(\"ws://\" + hostName + \":3000\");";
+      //"var ws = new WebSocket(\"ws://\" + hostName + \":3000\");";
+    	"var ws = new WebSocket(location.origin.replace(\"http\", \"ws\"));";
 
     scriptElement.innerHTML = 
       "var hostName = location.hostname;" + adaptHTTP + adaptWSS +
-      //"var ws = new WebSocket(\"ws://\" + hostName + \":3001\");" +
       "console.log(\"attempt for client connection made\");" +
       "ws.onmessage = function(message) {"+
       " console.log(\"got this message:\" + message.data);" + 
@@ -288,12 +274,9 @@ app.post("*", function(request, response, next) {
     next();
   });
 app.use(express.static("./"));
-app.listen(process.env.PORT || 3000);
+var ws = new WebSocketServer({server: app.listen(process.env.PORT || 3000), path: "/"});
 
-console.log("Editor server is listening");
-var wss = new WebSocketServer({server: app});
-
-wss.on("connection", function(connection) {
+ws.on("connection", function(connection) {
     relay.push(connection); // store for communication
     console.log("web socket connection made at server from HTML client page");
     connection.send("connected");
@@ -309,3 +292,6 @@ wss.on("connection", function(connection) {
         console.log("closing a connection");
       });
   });
+
+//app.listen(process.env.PORT || 3000);
+console.log("Editor server is listening");
