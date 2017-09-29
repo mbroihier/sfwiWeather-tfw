@@ -274,7 +274,8 @@ app.post("*", function(request, response, next) {
     next();
   });
 app.use(express.static("./"));
-var ws = new WebSocketServer({server: app.listen(process.env.PORT || 3000), path: "/"});
+//var ws = new WebSocketServer({server: app.listen(process.env.PORT || 3000), path: "/"});
+var ws = new WebSocketServer({server: app.listen(process.env.PORT || 3000)});
 
 ws.on("connection", function(connection) {
     relay.push(connection); // store for communication
