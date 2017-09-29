@@ -79,9 +79,6 @@ var jsonDb = null;
 var fileHandles = [];
 var testDocumentID = 0;
 
-// start a Web Socket Server
-//var wss = new WebSocketServer({port: process.env.PORT || 3001});
-// above didn't work on Heroku
 // check for changes to the test database every second
 setInterval(function(){
     let changed = false;
@@ -90,7 +87,6 @@ setInterval(function(){
       entry.Time = fs.statSync(entry.Path).ctime;
     }
     if (changed) { // if any of the files changed, rebuild the section and trace tables
-      //execSync('./buildHTMLSection '+ target.slice(1));
       execSync('./buildHTMLBook book');
       execSync('./buildHTMLTraceTables book');
       for (let connection of relay) {
@@ -236,8 +232,6 @@ app.get("/*/*.html", function(request, response, next) {
     scriptElement.setAttribute("type","text/javascript");
     let adaptHTTP = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
       "var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");";
-    //let adaptWSS = process.env.PORT ? "var ws = new WebSocket(\"wss://\" + hostName + \":" + process.env.PORT + "\");" :
-      //"var ws = new WebSocket(\"ws://\" + hostName + \":3000\");";
     let adaptWSS = "var ws = new WebSocket(location.origin.replace(\"http\", \"ws\"));";
 
     scriptElement.innerHTML = 
@@ -274,7 +268,6 @@ app.post("*", function(request, response, next) {
     next();
   });
 app.use(express.static("./"));
-//var ws = new WebSocketServer({server: app.listen(process.env.PORT || 3000), path: "/"});
 var ws = new WebSocketServer({server: app.listen(process.env.PORT || 3000)});
 
 ws.on("connection", function(connection) {
@@ -294,5 +287,4 @@ ws.on("connection", function(connection) {
       });
   });
 
-//app.listen(process.env.PORT || 3000);
 console.log("Editor server is listening");
