@@ -109,7 +109,7 @@ app.post('/log_entry.html', function(request, response, next){
     let dom = new jsdom.JSDOM(logEntryContents);
     response.send(dom.serialize());
   });
-app.post('/test_case*', function(request, response, next){
+app.post('/test_case.html', function(request, response, next){
     console.log("processing a post of an updated test case");
     let category = request.body.testCaseID.slice(0, request.body.testCaseID.indexOf("-"));
     console.log(request.body.title);
@@ -147,8 +147,8 @@ app.post('/test_case*', function(request, response, next){
         execSync("touch updated")});
     response.set("Connection","close");
     response.status(200);
-    response.send("");
-    //execSync("touch updated");
+    let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
+    response.send(closeWindow);
   });
 app.get("/", function(request, response, next) {
     // this is the main page so build replacement DOM
