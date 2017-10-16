@@ -214,6 +214,21 @@ app.get("/*/*.html", function(request, response, next) {
         div.appendChild(stepLine);
         insertionPoint.appendChild(div);
       }
+      
+      let div = document.createElement("div");
+      let box = document.createElement("input");
+      box.setAttribute("type", "checkbox");
+      box.setAttribute("value", "Add Step");
+      box.setAttribute("name", "Add Step");
+      div.appendChild(box);
+      let stepLine = document.createElement("label");
+      stepLine.innerHTML = "Add Step";
+      stepLine.setAttribute("name", "Add Step");
+      stepLine.setAttribute("rows", "1");
+      stepLine.setAttribute("cols", "20");
+      div.appendChild(stepLine);
+      insertionPoint.appendChild(div);
+
       insertionPoint = document.querySelector("#expectedResults");
       insertionPoint.innerHTML = jsonDb[category]['testDbExpectedResults'][theCase];
       insertionPoint = document.querySelector("#results");
