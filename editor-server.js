@@ -169,6 +169,25 @@ app.get("/", function(request, response, next) {
     }
     response.send(dom.serialize());
   });
+app.get("/*_toc.html", function(request, response, next) {
+    // this is the category page or a summary page, build replacement DOM
+    // that has an add test case option if it is a category page
+    if (request.url.search(/\/[A-Z]+_toc.html/) == 0) {
+      let tocPage = fs.readFileSync("." + request.url);
+      let dom = new jsdom.JSDOM(tocPage);
+      let document = dom.window.document;
+      let insertionPoint = document.querySelector("#list");
+      let listItem = document.createElement("li");
+      let link = document.createElement("a");
+      link.setAttribute("href", "test_case.html");
+      link.innerHTML = "New Test Case";
+      listItem.appendChild(link);
+      insertionPoint.appendChild(listItem);
+      response.send(dom.serialize());
+    } else {
+      next();
+    }
+  });
 app.get("/*/*.html", function(request, response, next) {
     // found a terminal html file that a user wants (may want) to edit, bring up an editor
     // for the database and tailor the test case file so it can refresh
