@@ -78,6 +78,7 @@ var jsonFullBuffer;
 var jsonDb = null;
 var fileHandles = [];
 var testDocumentID = 0;
+var lastTestCaseCategory = "";
 
 // check for changes to the test database every second
 setInterval(function(){
@@ -110,45 +111,105 @@ app.post('/log_entry.html', function(request, response, next){
     response.send(dom.serialize());
   });
 app.post('/test_case.html', function(request, response, next){
-    console.log("processing a post of an updated test case");
+    console.log(request.body);
+    console.log(request.body.testCaseID);
     let category = request.body.testCaseID.slice(0, request.body.testCaseID.indexOf("-"));
-    console.log(request.body.title);
-    jsonDb[category]['testDbID'][request.body.testCaseID] = request.body.title;
-    console.log(request.body.setup);
-    jsonDb[category]['testDbPre'][request.body.testCaseID] = request.body.setup.replace(/\r\n/g,"/hr");
-    console.log(request.body.objective);
-    jsonDb[category]['testDbObjective'][request.body.testCaseID] = request.body.objective.replace(/\r\n/g,"");
-    let line = 1;
-    let bulletLine = 1;
-    let procedures = "";
-    while ("stepLine" + line in request.body) {
-      if ("step" + line in request.body) {
-        procedures += "/step " + request.body["stepLine" + line].replace(/\r\n/g,"") + "\\step ";
-      }
-      line++;
-      while ("bulletLine" + bulletLine in request.body) {
-        if ("bullet" + bulletLine in request.body) {
-          procedures += "/bullet " + request.body["bulletLine" + bulletLine].replace(/\r\n/g,"") + "\\bullet ";
-        }
-        bulletLine++;
-      }
+    if (request.body.hasOwnProperty("delete")) {
+      console.log("delete of test case requested");
+      let property = request.body.testCaseID;
+      delete jsonDb[category]['testDbID'][property];
+      delete jsonDb[category]['testDbPre'][property];
+      delete jsonDb[category]['testDbObjective'][property];
+      delete jsonDb[category]['testDbProcedures'][property];
+      delete jsonDb[category]['testDbExpectedResults'][property];
+      delete jsonDb[category]['testDbResults'][property];
+      delete jsonDb[category]['testDbPost'][property];
+      delete jsonDb[category]['requirements'][property];
+      convertJSONToDb(jsonDb, function() {
+          execSync("touch updated")});
+      response.status(200);
+      let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
+      response.send(closeWindow);
+      return;
     }
-    console.log(procedures);
-    jsonDb[category]['testDbProcedures'][request.body.testCaseID] = procedures;
-    console.log(request.body.expectedResults);
-    jsonDb[category]['testDbExpectedResults'][request.body.testCaseID] = request.body.expectedResults.replace(/\r\n/g,"");
-    console.log(request.body.results);
-    jsonDb[category]['testDbResults'][request.body.testCaseID] = request.body.results;
-    console.log(request.body.cleanup);
-    jsonDb[category]['testDbPost'][request.body.testCaseID] = request.body.cleanup.replace(/\r\n/g,"/hr");
-    console.log(request.body.requirements);
-    jsonDb[category]['requirements'][request.body.testCaseID] = request.body.requirements.replace(/\r\n/g,"");
-    convertJSONToDb(jsonDb, function() {
-        execSync("touch updated")});
-    response.set("Connection","close");
-    response.status(200);
-    let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
-    response.send(closeWindow);
+    console.log(request.body.title);
+    if (jsonDb[category]['testDbID'] == undefined) { // this is a new test case
+      console.log("processing a post of a new test case");
+      let property = request.body.testCaseID;
+      jsonDb[category].testDbID = { property : request.body.title };
+      console.log(request.body.setup);
+      jsonDb[category].testDbPre = { property : request.body.setup.replace(/\r\n/g,"/hr") };
+      console.log(request.body.objective);
+      jsonDb[category].testDbObjective = { property : request.body.objective.replace(/\r\n/g,"") };
+      let line = 1;
+      let bulletLine = 1;
+      let procedures = "";
+      while ("stepLine" + line in request.body) {
+        if ("step" + line in request.body) {
+          procedures += "/step " + request.body["stepLine" + line].replace(/\r\n/g,"") + "\\step ";
+        }
+        line++;
+        while ("bulletLine" + bulletLine in request.body) {
+          if ("bullet" + bulletLine in request.body) {
+            procedures += "/bullet " + request.body["bulletLine" + bulletLine].replace(/\r\n/g,"") + "\\bullet ";
+          }
+          bulletLine++;
+        }
+      }
+      console.log(procedures);
+      jsonDb[category].testDbProcedures = { property : procedures };
+      console.log(request.body.expectedResults);
+      jsonDb[category].testDbExpectedResults = { property : request.body.expectedResults.replace(/\r\n/g,"") };
+      console.log(request.body.results);
+      jsonDb[category].testDbResults = { property : request.body.results };
+      console.log(request.body.cleanup);
+      jsonDb[category].testDbPost = { property : request.body.cleanup.replace(/\r\n/g,"/hr") };
+      console.log(request.body.requirements);
+      jsonDb[category].requirements =  { property : request.body.requirements.replace(/\r\n/g,"") };
+      convertJSONToDb(jsonDb, function() {
+          execSync("touch updated")});
+      response.status(200);
+      let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
+      response.send(closeWindow);
+    } else {
+      console.log("processing a post of an existing test case");
+      jsonDb[category]['testDbID'][request.body.testCaseID] = request.body.title;
+      console.log(request.body.setup);
+      jsonDb[category]['testDbPre'][request.body.testCaseID] = request.body.setup.replace(/\r\n/g,"/hr");
+      console.log(request.body.objective);
+      jsonDb[category]['testDbObjective'][request.body.testCaseID] = request.body.objective.replace(/\r\n/g,"");
+      let line = 1;
+      let bulletLine = 1;
+      let procedures = "";
+      while ("stepLine" + line in request.body) {
+        if ("step" + line in request.body) {
+          procedures += "/step " + request.body["stepLine" + line].replace(/\r\n/g,"") + "\\step ";
+        }
+        line++;
+        while ("bulletLine" + bulletLine in request.body) {
+          if ("bullet" + bulletLine in request.body) {
+            procedures += "/bullet " + request.body["bulletLine" + bulletLine].replace(/\r\n/g,"") + "\\bullet ";
+          }
+          bulletLine++;
+        }
+      }
+      console.log(procedures);
+      jsonDb[category]['testDbProcedures'][request.body.testCaseID] = procedures;
+      console.log(request.body.expectedResults);
+      jsonDb[category]['testDbExpectedResults'][request.body.testCaseID] = request.body.expectedResults.replace(/\r\n/g,"");
+      console.log(request.body.results);
+      jsonDb[category]['testDbResults'][request.body.testCaseID] = request.body.results;
+      console.log(request.body.cleanup);
+      jsonDb[category]['testDbPost'][request.body.testCaseID] = request.body.cleanup.replace(/\r\n/g,"/hr");
+      console.log(request.body.requirements);
+      jsonDb[category]['requirements'][request.body.testCaseID] = request.body.requirements.replace(/\r\n/g,"");
+      convertJSONToDb(jsonDb, function() {
+          execSync("touch updated")});
+      response.set("Connection","close");
+      response.status(200);
+      let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
+      response.send(closeWindow);
+    }
   });
 app.get("/", function(request, response, next) {
     // this is the main page so build replacement DOM
@@ -180,10 +241,18 @@ app.get("/*_toc.html", function(request, response, next) {
       let listItem = document.createElement("li");
       let link = document.createElement("a");
       link.setAttribute("href", "test_case.html");
-      link.innerHTML = "New Test Case";
+      link.innerHTML = "Add new test case to category";
+      let clip = request.url.indexOf("_");
+      lastTestCaseCategory = request.url.slice(0, clip).replace(/\//, "");
+      console.log("Category: " + lastTestCaseCategory);
       listItem.appendChild(link);
       insertionPoint.appendChild(listItem);
       response.send(dom.serialize());
+      if (jsonDb == null) {
+        convertDbToJSON('book', function (database) {
+            jsonDb = database;
+          });
+      }
     } else {
       next();
     }
@@ -287,6 +356,16 @@ app.get("/*/*.html", function(request, response, next) {
     } else {
       fillForm();
     }
+    return;
+  });
+app.get("/test_case.html", function(request, response, next) {
+    let dom = new jsdom.JSDOM(editingTestCaseContents);
+    let document = dom.window.document;
+    let insertionPoint = document.querySelector("#testCaseID");
+    insertionPoint.innerHTML = lastTestCaseCategory;
+    insertionPoint = document.querySelector("#updateButton");
+    insertionPoint.setAttribute("disabled", "");
+    response.send(dom.serialize());
     return;
   });
 app.get("*", function(request, response, next) {

@@ -1,3 +1,72 @@
+var testIDFieldName = "";
+var testIDInfo = "";
+var testIDNameValid = false;
+var testedRequirementsValid = false;
+var resultsFieldName = "";
+var resultsValid = false;
+var setUpdateButtonState = function () {
+  if (testedRequirementsValid && testIDNameValid && resultsValid) {
+    document.getElementById("updateButton").removeAttribute("disabled");
+  } else {
+    document.getElementById("updateButton").setAttribute("disabled", "");
+  }
+};
+
+let file = new XMLHttpRequest();
+file.open("GET","test_id_req.html",true);
+file.send();
+file.onreadystatechange = function() {
+  if (file.readyState == 4) {
+    testIDInfo = file.responseText;
+  }
+};
+
+document.getElementById("testCaseID").onkeyup = function(event) {
+  let testID = testIDFieldName.value;
+  if (testIDInfo.indexOf(testID) < 0) {
+    testIDNameValid = true;
+    testIDFieldName.removeAttribute("style");
+    testIDNameValid = true;
+  } else {
+    testIDNameValid = false;
+    testIDFieldName.setAttribute("style","color:red");
+  }
+  setUpdateButtonState();
+};
+
+testIDFieldName = document.getElementById("testCaseID");
+
+document.getElementById("requirements").onkeyup = function(event) {
+  let requirementsList = testRequirementsFieldName.value.split(",");
+  let allValid = true;
+  for (let requirement in requirementsList) {
+    if (testIDInfo.indexOf(requirementsList[requirement].trim()) >= 0) {
+      allValid &= true;
+      testRequirementsFieldName.removeAttribute("style");
+    } else {
+      allValid = false;
+      testRequirementsFieldName.setAttribute("style","color:red");
+    }
+  }
+  testedRequirementsValid = allValid;
+  setUpdateButtonState();
+};
+
+testRequirementsFieldName = document.getElementById("requirements");
+
+document.getElementById("results").onkeyup = function(event) {
+  if (["PASSED", "FAILED", "UNTESTED"].indexOf(resultsFieldName.value) >= 0) {
+    resultsValid = true;
+    resultsFieldName.removeAttribute("style");
+  } else {
+    resultsValid = false;
+    resultsFieldName.setAttribute("style","color:red");
+  }
+  setUpdateButtonState();
+};
+
+resultsFieldName = document.getElementById("results");
+
 window.onload = function() {
   let inputElements = document.getElementsByTagName("input");
   let stepTextElements = document.getElementsByTagName("textarea");
