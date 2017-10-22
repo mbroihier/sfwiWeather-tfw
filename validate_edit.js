@@ -68,6 +68,10 @@ document.getElementById("results").onkeyup = function(event) {
 resultsFieldName = document.getElementById("results");
 
 window.onload = function() {
+  let fileName = this.document.URL.split("/").pop();
+  let iAm = "iAm" + fileName.replace("test_case_", "").replace(".html", "");
+  document.getElementById("idLabel").innerHTML = iAm;
+
   let inputElements = document.getElementsByTagName("input");
   let stepTextElements = document.getElementsByTagName("textarea");
   let re = /step\d+/;

@@ -64,6 +64,8 @@ let mainPageContents = fs.readFileSync("./index.html");
 let logEntryContents = fs.readFileSync("./log_entry.html");
 // Read test case template
 let editingTestCaseContents = fs.readFileSync("./test_case.html");
+// Read blank test case
+let blankTestCaseContents = fs.readFileSync("./test_case_blank.html");
 // create an express server to make a static file server
 var app = express();
 // initialize global information
@@ -72,13 +74,14 @@ execSync("touch updated");
 var statTime = [{Path: "updated", Time: fs.statSync("updated").ctime}];
 var target;
 var relay = [];
+var connectionMap = [];
 var jsonImages = [];
 var fullBuffer = "";
 var jsonFullBuffer;
 var jsonDb = null;
 var fileHandles = [];
 var testDocumentID = 0;
-var lastTestCaseCategory = "";
+var lastTestCaseCategory = "Empty";
 
 // check for changes to the test database every second
 setInterval(function(){
@@ -91,8 +94,13 @@ setInterval(function(){
       execSync('./buildHTMLBook book');
       execSync('./buildHTMLTraceTables book');
       for (let connection of relay) {
-        connection.send("refresh");
-        console.log("sending refresh to the client");
+        if (connection.hasOwnProperty("gotDelete") || connection.hasOwnProperty("gotAdd")) {
+          connection.send("exit");
+          console.log("sending exit to the client");
+        } else {
+          connection.send("refresh");
+          console.log("sending refresh to the client");
+        }
       }
     }
   },1000);
@@ -125,22 +133,33 @@ app.post('/test_case.html', function(request, response, next){
       delete jsonDb[category]['testDbResults'][property];
       delete jsonDb[category]['testDbPost'][property];
       delete jsonDb[category]['requirements'][property];
+      for (let connection of relay)  {
+        console.log("connection is:" + connection);
+        if (connection.hasOwnProperty("iAm")) {
+          if(connection.iAm == request.body.idLabel) {
+            console.log("got a delete from: " + connection.iAm);
+            connection.gotDelete = true;
+          }
+        }
+      }
       convertJSONToDb(jsonDb, function() {
           execSync("touch updated")});
-      response.status(200);
-      let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
-      response.send(closeWindow);
+      response.redirect("./");
+      //response.status(200);
+      //let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
+      //response.send(closeWindow);
+      //response.send("");
       return;
     }
     console.log(request.body.title);
-    if (jsonDb[category]['testDbID'] == undefined) { // this is a new test case
+    if ((jsonDb[category]['testDbID'] == undefined) || (jsonDb[category]['testDbID'][request.body.testCaseID] == undefined)){ // this is a new test case
       console.log("processing a post of a new test case");
       let property = request.body.testCaseID;
-      jsonDb[category].testDbID = { property : request.body.title };
+      jsonDb[category]['testDbID'][property] = request.body.title ;
       console.log(request.body.setup);
-      jsonDb[category].testDbPre = { property : request.body.setup.replace(/\r\n/g,"/hr") };
+      jsonDb[category]['testDbPre'][property] = request.body.setup.replace(/\r\n/g,"/hr") ;
       console.log(request.body.objective);
-      jsonDb[category].testDbObjective = { property : request.body.objective.replace(/\r\n/g,"") };
+      jsonDb[category]['testDbObjective'][property] = request.body.objective.replace(/\r\n/g,"") ;
       let line = 1;
       let bulletLine = 1;
       let procedures = "";
@@ -157,22 +176,37 @@ app.post('/test_case.html', function(request, response, next){
         }
       }
       console.log(procedures);
-      jsonDb[category].testDbProcedures = { property : procedures };
+      jsonDb[category]['testDbProcedures'][property] = procedures ;
       console.log(request.body.expectedResults);
-      jsonDb[category].testDbExpectedResults = { property : request.body.expectedResults.replace(/\r\n/g,"") };
+      jsonDb[category]['testDbExpectedResults'][property] = request.body.expectedResults.replace(/\r\n/g,"");
       console.log(request.body.results);
-      jsonDb[category].testDbResults = { property : request.body.results };
+      jsonDb[category]['testDbResults'][property] = request.body.results;
       console.log(request.body.cleanup);
-      jsonDb[category].testDbPost = { property : request.body.cleanup.replace(/\r\n/g,"/hr") };
+      jsonDb[category]['testDbPost'][property] = request.body.cleanup.replace(/\r\n/g,"/hr");
       console.log(request.body.requirements);
-      jsonDb[category].requirements =  { property : request.body.requirements.replace(/\r\n/g,"") };
+      jsonDb[category]['requirements'][property] = request.body.requirements.replace(/\r\n/g,"");
+      for (let connection of relay)  {
+        console.log("connection is:" + connection);
+        if (connection.hasOwnProperty("iAm")) {
+          if(connection.iAm == request.body.idLabel) {
+            console.log("got an add from: " + connection.iAm);
+            connection.gotAdd = true;
+          }
+        }
+      }
       convertJSONToDb(jsonDb, function() {
           execSync("touch updated")});
-      response.status(200);
-      let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
-      response.send(closeWindow);
-    } else {
-      console.log("processing a post of an existing test case");
+      response.redirect("./");
+      //response.status(200);
+      //let closeWindow = "<script type=\"text/javascript\">window.close();</script>"; // JavaScript to close window - done.
+      //response.send(closeWindow);
+      //response.send("");
+    } else { // this is an old test case
+      console.log("processing a post of an existing test case: " + jsonDb[category].testDbID);
+      for (let i in jsonDb[category]) {
+        console.log(jsonDb[category][i]);
+      }
+      console.log("*****");
       jsonDb[category]['testDbID'][request.body.testCaseID] = request.body.title;
       console.log(request.body.setup);
       jsonDb[category]['testDbPre'][request.body.testCaseID] = request.body.setup.replace(/\r\n/g,"/hr");
@@ -211,7 +245,7 @@ app.post('/test_case.html', function(request, response, next){
       response.send(closeWindow);
     }
   });
-app.get("/", function(request, response, next) {
+app.get("/", function(request, response, next) { // process index file
     // this is the main page so build replacement DOM
     // that has the sections available to edit
     let files = fs.readdirSync("./");
@@ -230,7 +264,7 @@ app.get("/", function(request, response, next) {
     }
     response.send(dom.serialize());
   });
-app.get("/*_toc.html", function(request, response, next) {
+app.get("/*_toc.html", function(request, response, next) { // process an table of contents page
     // this is the category page or a summary page, build replacement DOM
     // that has an add test case option if it is a category page
     if (request.url.search(/\/[A-Z]+_toc.html/) == 0) {
@@ -257,7 +291,7 @@ app.get("/*_toc.html", function(request, response, next) {
       next();
     }
   });
-app.get("/*/*.html", function(request, response, next) {
+app.get("/*/*.html", function(request, response, next) { // process a test case page
     // found a terminal html file that a user wants (may want) to edit, bring up an editor
     // for the database and tailor the test case file so it can refresh
     testDocumentID++;
@@ -267,10 +301,6 @@ app.get("/*/*.html", function(request, response, next) {
       let insertionPoint = document.querySelector("#testCaseID");
       let category = request.url.slice(request.url.lastIndexOf("/")+1,request.url.indexOf("-"));
       let theCase = request.url.slice(request.url.lastIndexOf("/")+1,request.url.indexOf(".html"));
-      //console.log(insertionPoint);
-      //console.log(theCase);
-      //console.log(jsonDb[category]["testDbID"][theCase]);
-      //console.log(jsonDb[category]["testDbObjective"]);
       insertionPoint.innerHTML = theCase;
       insertionPoint = document.querySelector("#title");
       insertionPoint.innerHTML = jsonDb[category]['testDbID'][theCase];
@@ -279,10 +309,8 @@ app.get("/*/*.html", function(request, response, next) {
       insertionPoint = document.querySelector("#setup");
       insertionPoint.innerHTML = jsonDb[category]['testDbPre'][theCase];
       insertionPoint = document.querySelector("#procedures");
-      //insertionPoint.innerHTML = jsonDb[category]['testDbProcedures'][theCase];
       var actions = complexParagraph();
       actions.add(theCase, jsonDb[category]['testDbProcedures'][theCase]);
-      //insertionPoint.innerHTML = actions.toString();
       let step;
       insertionPoint = document.querySelector("#steps");
       let lineNumber = 1;
@@ -326,31 +354,40 @@ app.get("/*/*.html", function(request, response, next) {
       insertionPoint = document.querySelector("#requirements");
       insertionPoint.innerHTML = jsonDb[category]['requirements'][theCase];
       fs.writeFileSync("./test_case_" + testDocumentID + ".html", dom.serialize());
-    }
+    } // end of fillForm - this is called after JSON database is created
     let testCaseContents = fs.readFileSync("./"+request.url);
     let dom = new jsdom.JSDOM(testCaseContents);
     let document = dom.window.document;
     let insertionPoint = document.querySelector("body");
     let scriptElement = document.createElement("script");
     scriptElement.setAttribute("type","text/javascript");
+    let adaptRefresh = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
+      "var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");";
     let adaptHTTP = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
       "var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");";
     let adaptWSS = "var ws = new WebSocket(location.origin.replace(\"http\", \"ws\"));";
 
     scriptElement.innerHTML = 
       "var hostName = location.hostname;" + adaptHTTP + adaptWSS +
+      "var iAm = " + testDocumentID + ";" +
       "console.log(\"attempt for client connection made\");" +
+      "console.log(location.pathname.split('/').pop());" +
       "ws.onmessage = function(message) {"+
       " console.log(\"got this message:\" + message.data);" + 
       " if (message.data === \"refresh\") {" +
-      "  window.location.reload();};" +
-      " };";
+      //      adaptRefresh + this may need to go back
+      "   window.location.reload(); " +
+      " };" +
+      " if (message.data === 'exit') {" +
+      "  window.close();};" +
+      " if (message.data === 'connected') {" +
+      "  ws.send('iAm'+iAm);}; " +
+      "};";
     insertionPoint.appendChild(scriptElement);
     response.send(dom.serialize());
     if (jsonDb == null) {
       convertDbToJSON('book', function (database) {
           jsonDb = database;
-          //console.log(jsonDb);
           fillForm();
         });
     } else {
@@ -359,13 +396,52 @@ app.get("/*/*.html", function(request, response, next) {
     return;
   });
 app.get("/test_case.html", function(request, response, next) {
-    let dom = new jsdom.JSDOM(editingTestCaseContents);
+    let fillForm = function() {
+      let dom = new jsdom.JSDOM(editingTestCaseContents);
+      let document = dom.window.document;
+      let insertionPoint = document.querySelector("#testCaseID");
+      insertionPoint.innerHTML = lastTestCaseCategory;
+      insertionPoint = document.querySelector("#updateButton");
+      insertionPoint.setAttribute("disabled", "");
+      console.log("writing file: ./test_case_" + testDocumentID + ".html");
+      fs.writeFileSync("./test_case_" + testDocumentID + ".html", dom.serialize());
+    };
+    let testCaseContents = fs.readFileSync("./test_case_blank.html");
+    let dom = new jsdom.JSDOM(testCaseContents);
     let document = dom.window.document;
+    console.log(document);
     let insertionPoint = document.querySelector("#testCaseID");
+    console.log(insertionPoint);
+    testDocumentID++;
     insertionPoint.innerHTML = lastTestCaseCategory;
-    insertionPoint = document.querySelector("#updateButton");
-    insertionPoint.setAttribute("disabled", "");
+    insertionPoint = document.querySelector("body");
+    let scriptElement = document.createElement("script");
+    scriptElement.setAttribute("type","text/javascript");
+
+    let adaptHTTP = process.env.PORT ? "var browser = window.open(\"https://\" + hostName + \"/test_case_" + testDocumentID +".html\");" :
+      "var browser = window.open(\"http://\" + hostName + \":3000/test_case_" + testDocumentID +".html\");";
+    let adaptWSS = "var ws = new WebSocket(location.origin.replace(\"http\", \"ws\"));";
+    let adaptRefresh = process.env.PORT ? "var browser = window.open(\"https://\" + hostName);" :
+      "var browser = window.open(\"http://\" + hostName + \":3000/\");";
+
+    scriptElement.innerHTML = 
+      "var hostName = location.hostname;" + adaptHTTP + adaptWSS +
+      "var iAm = " + testDocumentID + ";" +
+      "console.log(\"attempt for client connection made\");" +
+      "console.log(location.pathname.split('/').pop());" +
+      "ws.onmessage = function(message) {"+
+      " console.log(\"got this message:\" + message.data);" + 
+      " if (message.data === \"refresh\") {" +
+      adaptRefresh +
+      " };" +
+      " if (message.data === 'exit') {" +
+      "  window.close();};" +
+      " if (message.data === 'connected') {" +
+      "  ws.send('iAm'+iAm);}; " +
+      "};";
+    insertionPoint.appendChild(scriptElement);
     response.send(dom.serialize());
+    fillForm();
     return;
   });
 app.get("*", function(request, response, next) {
@@ -383,7 +459,7 @@ app.post("*", function(request, response, next) {
 app.use(express.static("./"));
 var ws = new WebSocketServer({server: app.listen(process.env.PORT || 3000)});
 
-ws.on("connection", function(connection) {
+ws.on("connection", function(connection, request) {
     relay.push(connection); // store for communication
     console.log("web socket connection made at server from HTML client page");
     connection.send("connected");
@@ -391,6 +467,11 @@ ws.on("connection", function(connection) {
         if (message === "exit") {
           relay.splice(relay.indexOf(connection), 1);
           connection.close();
+        } else if (message.indexOf("iAm") >= 0) {
+          console.log("This connection is: " + message);
+          connection.iAm = message;
+        } else {
+          console.log("Bogus message: " + message);
         }
       });
     connection.on("close", function(message) {
