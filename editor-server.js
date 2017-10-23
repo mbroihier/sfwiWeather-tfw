@@ -119,8 +119,7 @@ app.post('/log_entry.html', function(request, response, next){
     response.send(dom.serialize());
   });
 app.post('/test_case.html', function(request, response, next){
-    console.log(request.body);
-    console.log(request.body.testCaseID);
+	console.log("processing post of test_case.html");
     let category = request.body.testCaseID.slice(0, request.body.testCaseID.indexOf("-"));
     if (request.body.hasOwnProperty("delete")) {
       console.log("delete of test case requested");
@@ -134,7 +133,6 @@ app.post('/test_case.html', function(request, response, next){
       delete jsonDb[category]['testDbPost'][property];
       delete jsonDb[category]['requirements'][property];
       for (let connection of relay)  {
-        console.log("connection is:" + connection);
         if (connection.hasOwnProperty("iAm")) {
           if(connection.iAm == request.body.idLabel) {
             console.log("got a delete from: " + connection.iAm);
@@ -151,7 +149,6 @@ app.post('/test_case.html', function(request, response, next){
       //response.send("");
       return;
     }
-    console.log(request.body.title);
     if ((jsonDb[category]['testDbID'] == undefined) || (jsonDb[category]['testDbID'][request.body.testCaseID] == undefined)){ // this is a new test case
       console.log("processing a post of a new test case");
       let property = request.body.testCaseID;
@@ -186,7 +183,6 @@ app.post('/test_case.html', function(request, response, next){
       console.log(request.body.requirements);
       jsonDb[category]['requirements'][property] = request.body.requirements.replace(/\r\n/g,"");
       for (let connection of relay)  {
-        console.log("connection is:" + connection);
         if (connection.hasOwnProperty("iAm")) {
           if(connection.iAm == request.body.idLabel) {
             console.log("got an add from: " + connection.iAm);
@@ -203,10 +199,6 @@ app.post('/test_case.html', function(request, response, next){
       //response.send("");
     } else { // this is an old test case
       console.log("processing a post of an existing test case: " + jsonDb[category].testDbID);
-      for (let i in jsonDb[category]) {
-        console.log(jsonDb[category][i]);
-      }
-      console.log("*****");
       jsonDb[category]['testDbID'][request.body.testCaseID] = request.body.title;
       console.log(request.body.setup);
       jsonDb[category]['testDbPre'][request.body.testCaseID] = request.body.setup.replace(/\r\n/g,"/hr");
@@ -409,9 +401,7 @@ app.get("/test_case.html", function(request, response, next) {
     let testCaseContents = fs.readFileSync("./test_case_blank.html");
     let dom = new jsdom.JSDOM(testCaseContents);
     let document = dom.window.document;
-    console.log(document);
     let insertionPoint = document.querySelector("#testCaseID");
-    console.log(insertionPoint);
     testDocumentID++;
     insertionPoint.innerHTML = lastTestCaseCategory;
     insertionPoint = document.querySelector("body");
