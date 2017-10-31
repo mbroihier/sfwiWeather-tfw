@@ -24,8 +24,10 @@ class TraceTable(Document):
             cellElement = self.dom.createElement("td")
 
             informationString = information[key].replace(" ","")
-            informationList = informationString.split(", ")
-            informationString = ",".join(sorted(informationList))
+            informationList = informationString.split(",")
+            if len(informationList) > 1:
+                informationList.pop(0)
+            informationString = ", ".join(sorted(informationList))
             cellElement.appendChild(self.dom.createTextNode(informationString))
             rowElement.appendChild(cellElement)
 
@@ -59,6 +61,9 @@ def main():
         line = bookFile.readline()
 
     requirementsToTestCase = {}
+    for requirement in requirements.requirements:
+        requirementsToTestCase[requirement] = "  "
+
     testCaseToRequirements = {}
 
     for category in objectives:
