@@ -70,13 +70,26 @@ var convertDbToJSON = function(book, callback) {
           dbFile.on("close", function () {
               console.log("closing file");
               processedFiles++;
-              dbBuffers[postfix] = buffer + '}';
+              let wasEmpty = false;
+              if (buffer.length == 0) {
+                console.log("buffer length was zero - process an empty file for postfix: " + postfix);
+                dbBuffers[postfix] = '"' + postfix.slice(1) + '" : {}';
+                buffer = dbBuffers[postfix];
+                wasEmpty = true;
+              } else {
+                dbBuffers[postfix] = buffer + '}';
+              }
               if (processedFiles == dbFiles.length) {
                 let fullBuffer = '{ ';
                 for (let postfix of dbFiles) {
                   fullBuffer += dbBuffers[postfix] + ',';
                 }
-                fullBuffer += buffer + '}, \"requirements\" : {' + requirements + '}}'; 
+                if (wasEmpty) {
+                  fullBuffer += buffer + ', \"requirements\" : {' + requirements + '}}'; 
+                } else {
+                  console.log("shouldn't come through here when db is empty");
+                  fullBuffer += buffer + '}, \"requirements\" : {' + requirements + '}}'; 
+                }
                 fileHandles = []; // dispose of all file handles
                 sectionBuffers[section] = fullBuffer;
                 processedSections++;
@@ -84,22 +97,24 @@ var convertDbToJSON = function(book, callback) {
                 //let jsonFullBuffer = JSON.parse(fullBuffer);
                 //console.log(jsonFullBuffer);
               } else {
-                dbBuffers[postfix] = buffer + '}';
+                if (! wasEmpty) {
+                  dbBuffers[postfix] = buffer + '}';
+                }
               }
               if (processedSections == sections.length && processedFiles == dbFiles.length) {
                 // put sections together and convert the string to a JSON object
                 let fullSectionBuffer = "{ ";
                 for (let tempSection of sections) {
-                  if (tempSection == sections[sections.length - 1]){
+                  if (tempSection == sections[sections.length - 1]) {
                     fullSectionBuffer += '"' + tempSection + '" : ' + sectionBuffers[tempSection] + " } ";
                   } else {
                     fullSectionBuffer += '"' + tempSection + '": ' + sectionBuffers[tempSection] + " , ";
                   }
                 }
-                //console.log(fullSectionBuffer);
+                console.log(fullSectionBuffer);
                 jsonFullDatabase = JSON.parse(fullSectionBuffer);
                 callback(jsonFullDatabase);
-                //console.log(jsonFullDatabase);
+                console.log(jsonFullDatabase);
               }
 
             });
