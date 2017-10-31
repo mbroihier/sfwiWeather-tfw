@@ -1,9 +1,9 @@
 var testIDFieldName = "";
 var testIDInfo = "";
-var testIDNameValid = false;
-var testedRequirementsValid = false;
+var testIDNameValid = true;
+var testedRequirementsValid = true;
 var resultsFieldName = "";
-var resultsValid = false;
+var resultsValid = true;
 var setUpdateButtonState = function () {
   if (testedRequirementsValid && testIDNameValid && resultsValid) {
     document.getElementById("updateButton").removeAttribute("disabled");
@@ -13,7 +13,7 @@ var setUpdateButtonState = function () {
 };
 
 let file = new XMLHttpRequest();
-file.open("GET","test_id_req.html",true);
+file.open("GET","req_test_id.html",true);
 file.send();
 file.onreadystatechange = function() {
   if (file.readyState == 4) {
