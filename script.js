@@ -107,7 +107,7 @@ myRequest.onreadystatechange = function(){
 						}
 					}
 				}
-				if (addToList && headings[heading] == "Test End Time:") { // if we have increased the number of unique new tests that have been run
+				if (headings[heading] == "Test End Time:") { // if we have increased the number of unique new tests that have been run
 					let regularExpression = / *(\d+\/\d+\/\d+) *.*/;
 					let date = sectionContent.match(regularExpression);
 					console.log("date: " + date + ", original: " + sectionContent + ", -- " + date[1]);
