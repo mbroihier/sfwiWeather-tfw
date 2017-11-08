@@ -45,18 +45,23 @@ class Requirements:
         # note, since the file will be open, all of the requirements in the file will be added in
         # case they are needed in the future (likely)
         requirementPath = "REQ." + r.split("-")[0]
-        requirementFile = codecs.open(requirementPath, "r", encoding="utf-8")
-        requirementID = requirementFile.readline().strip().encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
-        while requirementID != "":
-            requirementText = requirementFile.readline().strip()
-            #print(type(requirementText))
-            self.requirements[requirementID] = requirementText.encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
-            #print(type(self.requirements[requirementID]))
+        try:
+            requirementFile = codecs.open(requirementPath, "r", encoding="utf-8")
             requirementID = requirementFile.readline().strip().encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
-        requirementFile.close()
+            while requirementID != "":
+                requirementText = requirementFile.readline().strip()
+                #print(type(requirementText))
+                self.requirements[requirementID] = requirementText.encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
+                #print(type(self.requirements[requirementID]))
+                requirementID = requirementFile.readline().strip().encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
+            requirementFile.close()
+        except IOError:
+            print("Requirement file error - non fatal")
 
     # add a list of requirements to the database
     def updateRequirements(self,requirementList):
+        if isinstance(requirementList, basestring):
+            return
         for r in requirementList:
             if not r in self.requirements:
                 self.addRequirement(r)

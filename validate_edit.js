@@ -43,6 +43,9 @@ document.getElementById("requirements").onkeyup = function(event) {
     if (testIDInfo.indexOf(requirementsList[requirement].trim()) >= 0) {
       allValid &= true;
       testRequirementsFieldName.removeAttribute("style");
+    } else if (requirementsList[requirement] == "None") {
+      allValid &= true;
+      testRequirementsFieldName.removeAttribute("style");
     } else {
       allValid = false;
       testRequirementsFieldName.setAttribute("style","color:red");
