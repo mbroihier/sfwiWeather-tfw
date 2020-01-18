@@ -13,7 +13,7 @@ class TraceTable(Document):
 
         element = findElementById(nodes,"traceTable")
 
-
+        print(information)
         for key in sorted(information):
             rowElement = self.dom.createElement("tr")
 

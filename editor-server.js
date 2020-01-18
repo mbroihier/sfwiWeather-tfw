@@ -469,6 +469,9 @@ ws.on("connection", function(connection, request) {
         connection.close();
         console.log("closing a connection");
       });
+    connection.on("error", function(err) {
+	console.log("got an error in web socket processing: ", err);
+      });
   });
 
 console.log("Editor server is listening");

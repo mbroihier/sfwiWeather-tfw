@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from xml.dom.minidom import parse
 from xml.dom.minidom import Document
+import re
 import sys
 import os
 
@@ -32,7 +33,19 @@ class Requirements:
         self.requirements = {}
     
         if (requirementsInThisTest == None): # if no argument
-            return
+            try:
+                fileObject = open("PROJECT.testDb", "r")
+                line = fileObject.readline()
+                acronymMatch = re.search("\(([^\)]+)\)", line)
+                if not acronymMatch:
+                    print("Invalid acronym syntax - fatal error")
+                    sys.exit(-1)
+                requirementsInThisTest = acronymMatch.group(1)
+                self.addRequirement(requirementsInThisTest)
+                return
+            except IOError:
+                print("Project file does not exist - fatal error")
+                sys.exit(-1)
         
         for r in requirementsInThisTest:
             if not r in self.requirements:
@@ -56,7 +69,7 @@ class Requirements:
                 requirementID = requirementFile.readline().strip().encode('ascii', 'xmlcharrefreplace').replace("&#8220;","\"").replace("&#8221;","\"")
             requirementFile.close()
         except IOError:
-            print("Requirement file error - non fatal")
+            print("Requirement file error - non fatal", requirementPath)
 
     # add a list of requirements to the database
     def updateRequirements(self,requirementList):
@@ -204,7 +217,7 @@ class Procedures (Document):
                 for b in bullets:
                     bulletListItemTag = self.dom.createElement("li")
                     bulletListItemTag.setAttribute("type","square")
-                    bulletListItemTag.appendChild(self.dom.createTextNode(b.replace("\bullet","")))
+                    bulletListItemTag.appendChild(self.dom.createTextNode(b.replace("\\bullet","").replace("\step","")))
                     unorderedListTag.appendChild(bulletListItemTag)
                 listItemTag.appendChild(unorderedListTag)
             element.appendChild(listItemTag)
