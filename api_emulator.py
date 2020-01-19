@@ -109,7 +109,7 @@ class CommandInterpreter:
                 fileHandle.close()
                 fileHandle = open(self.category+".testDbProcedures", "a")
                 fileHandle.write(self.testID + "\n")
-                fileHandle.write("Execute the test driver as described in the test category description.\n")
+                fileHandle.write("/step Execute the test driver as described in the test category description.\step\n")
                 fileHandle.close()
                 fileHandle = open(self.category+".testDbResults", "a")
                 fileHandle.write(self.testID + "\n")
@@ -174,7 +174,8 @@ class CommandInterpreter:
         direction = ""
         description = ""
         temperature = 0
-        sampled = False 
+        sampled = False
+        dontUpdate = False
         #print(currentDay)
         #print(emulatorTime)
         for currentPeriod in workingObject['properties']['periods']:
@@ -223,6 +224,10 @@ class CommandInterpreter:
                     low = candidateTemp
                     lowIndex = index
             index += 1
+            if low < -199 or high > 199:
+                dontUpdate = True
+            if currentPeriod['windSpeed'] < 0 or currentPeriod['windSpeed'] > 299:
+                dontUpdate = True
 
         if highIndex > lowIndex:
             dayHiLows[workingOnDay] = str(low) + u'\xc2\xb0' + "/" + str(high) + u'\xc2\xb0'
@@ -230,6 +235,8 @@ class CommandInterpreter:
             dayHiLows[workingOnDay] = str(high) + u'\xc2\xb0' + "/" + str(low) + u'\xc2\xb0'
             
         #print(dayHiLows)
+        if dontUpdate:
+            return workingObject
         for day in self.allDays:
             if day in dayHiLows:
                 for hour in [ " 00", " 01", " 02", " 03", " 04", " 05", " 06", " 07", " 08", " 09", " 10", " 11",
@@ -337,12 +344,22 @@ def main():
         if command == "setup":
             expectedResultsFile = PythonToJson({}, outputDirectory + "/expectedResults." + ci.getID())
             expectedResultsFile.write()
+            fileHandle = open(outputDirectory + ".testDbExpectedResults", "a")
+            fileHandle.write(ci.getID() + "\nThis test case is a setup for subsequent tests and expects nothing: ")
+            json.dump({},fileHandle)
+            fileHandle.write("\n")
+            fileHandle.close()
             fileHandle = open(outputDirectory + "/test.ctl", "a")
             fileHandle.write(ci.getID() + "\n")
             fileHandle.close()
         if command == "test":
             expectedResultsFile = PythonToJson(ci.getResults(), outputDirectory + "/expectedResults." + ci.getID())
             expectedResultsFile.write()
+            fileHandle = open(outputDirectory + ".testDbExpectedResults", "a")
+            fileHandle.write(ci.getID() + "\nThis test case expects the following JSON subobjects: ")
+            json.dump(ci.getResults(),fileHandle)
+            fileHandle.write("\n")
+            fileHandle.close()
             fileHandle = open(outputDirectory + "/test.ctl", "a")
             fileHandle.write(ci.getID() + "\n")
             fileHandle.close()
