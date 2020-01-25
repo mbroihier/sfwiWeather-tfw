@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+HILOW-0080</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+Wind speed and temperature are just within tolerance - low side</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>requirement ID missing from requirements</li></ul>
+<p>Given an API forecast reply that has a windspeed and temperature just within tolerance, illustrate that the forecast is updated.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li>Read test category description.</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> Execute the test driver as described in the test category description.</li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+This test case expects the following JSON subobjects: {&quot;hiLow&quot;: {&quot;Mon 00:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 01:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 02:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 03:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 04:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 05:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 06:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 07:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 08:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 09:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 10:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 11:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 12:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 13:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 14:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 15:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 16:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 17:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 18:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 19:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 20:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 21:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 22:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Mon 23:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Tue 00:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 01:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 02:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 03:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 04:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 05:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 06:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 07:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 08:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 09:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 10:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 11:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 12:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 13:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 14:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 15:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 16:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 17:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 18:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 19:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 20:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 21:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 22:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Tue 23:00&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;Wed 00:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 01:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 02:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 03:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 04:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 05:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 06:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 07:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 08:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 09:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 10:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 11:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 12:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 13:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 14:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 15:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 16:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 17:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 18:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 19:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 20:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 21:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 22:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Wed 23:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 00:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 01:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 02:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 03:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 04:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 05:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 06:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 07:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 08:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 09:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 10:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 11:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 12:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 13:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 14:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 15:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 16:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 17:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 18:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 19:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 20:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 21:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 22:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Thu 23:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 00:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 01:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 02:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 03:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 04:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 05:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 06:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 07:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 08:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 09:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 10:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 11:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 12:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 13:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 14:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 15:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 16:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 17:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 18:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 19:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 20:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 21:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 22:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Fri 23:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 00:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 01:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 02:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 03:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 04:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 05:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 06:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 07:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 08:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 09:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 10:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 11:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 12:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 13:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 14:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 15:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 16:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 17:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 18:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 19:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 20:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 21:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 22:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sat 23:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 00:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 01:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 02:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 03:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 04:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 05:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 06:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 07:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 08:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 09:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 10:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 11:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 12:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 13:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 14:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 15:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 16:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 17:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 18:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 19:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 20:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 21:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 22:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;, &quot;Sun 23:00&quot;: &quot;-199\u00c2\u00b0/-199\u00c2\u00b0&quot;}, &quot;alertInfo&quot;: [&quot;end of the world&quot;, &quot;big bang&quot;], &quot;display&quot;: {&quot;time&quot;: &quot;Tue Jan 21 2020 02:00&quot;, &quot;range&quot;: &quot;34\u00c2\u00b0/57\u00c2\u00b0&quot;, &quot;wind&quot;: &quot;W @ 0&quot;, &quot;description&quot;: &quot;something else&quot;}}</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+PASSED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li></li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+None</td>
+</tr>
+</table>
+</body>
+</html>

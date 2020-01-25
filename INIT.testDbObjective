@@ -1,0 +1,4 @@
+INIT-0010:SFWIWEATHER-EXT-IF-030, SFWIWEATHER-EXT-IF-030.001, SFWIWEATHER-EXT-IF-030.002, SFWIWEATHER-PROV-010, SFWIWEATHER-PROV-020
+This test case verifies the installation procedure in the repository "readme" file.  Most of what is being tested here are implied requirements.  That is, upon completion of installation, the server should run without error and display information to a client. 
+INIT-0020:SFWIWEATHER-PR-INIT-010, SFWIWEATHER-PR-INIT-020
+This test case illustrates the that repository can be installed on an existing PI running Stretch.  In this case, the installation will deviate from the repository that creates an "appliance".  This illustrates how the server can be run in a mode that is useful for debugging.

@@ -1,0 +1,2 @@
+UPDATE-0010:SFWIWEATHER-EXT-IF-040, SFWIWEATHER-EXT-IF-040.001, SFWIWEATHER-PR-INFO-010, SFWIWEATHER-PR-INFO-020, SFWIWEATHER-PR-INFO-030
+This test case confirms that the server collects weather data from the API at appropriate rates and that HTTPS is used to collect the data.

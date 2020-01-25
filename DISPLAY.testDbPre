@@ -1,0 +1,10 @@
+DISPLAY-0010
+Test case INST-0010 has been run.
+DISPLAY-0020
+Test case INST-0010 has been run.
+DISPLAY-0030
+Test case INST-0010 has been run.
+DISPLAY-0040
+Test case INST-0010 has been run./hr Using curl -X GET "https://api.weather.gov/alerts/active/count", scan the output and find a zone with a count >1./hr Using curl -X GET "https://api.weather.gov/zones/forecast/<zone found>", get the latitude and longitude of the zone./hr Configure the server for this location - ./configure lat lon name/hr Restart the server - sudo systemctl restart sfwiWeather
+DISPLAY-0050
+Test case INIT-0010 has been executed.

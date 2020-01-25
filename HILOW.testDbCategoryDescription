@@ -1,0 +1,1 @@
+This test category tests the ranges of temperature and wind.  Checks exist within the server to protect itself from data that is not normal.  That data is rejected.  This test category was built by the API emulator and is meant to be run using the test driver.  From within the sfwiWeather-tfw directory, executing node driver.js HILOW will execute this series of tests.

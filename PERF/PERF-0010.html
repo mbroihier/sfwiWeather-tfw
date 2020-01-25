@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+PERF-0010</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+Server responds in under three seconds.</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>The client shall be able to receive a response from the server in under three seconds when there are no other clients being served.</li></ul>
+<p>This test case times the end to end response to a query and verifies that, on an unloaded system (this appliance is only meant to run on a small home network), the response time of the query is under three seconds.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li>This test case assumes INST-0010 has been run.</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> From another computer on the sfwiWeather's network that is running Linux, run the following commands on a single line: <ul><li type="square"> date ; curl -X GET &quot;http://sfwiWeather:3000&quot; ; date  </li></ul></li><li> Measure the difference between the time stamps. </li><li> Repeat this 9 more times. </li><li> Verify that all time differences are less than three seconds.</li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+All measured time deltas will be less than three seconds.</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+PASSED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li></li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+SFWIWEATHER-PERF-010</td>
+</tr>
+</table>
+</body>
+</html>

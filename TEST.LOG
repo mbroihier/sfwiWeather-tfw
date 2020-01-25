@@ -1,0 +1,235 @@
+ID:EXPECTED PROGRESS
+1/23/2020 1
+1/24/2020 5
+1/25/2020 10
+1/26/2020 15
+1/27/2020 20
+1/28/2020 22
+1/29/2020 24
+1/30/2020 25
+1/31/2020 26
+2/01/2020 27
+2/02/2020 28
+2/03/2020 29
+ID:INIT-0010
+Test Start Time: 1/23/2020 12:02 CST
+Log data:
+Using pi4alpha as installation computer.  Fresh 16 SD card attached to pi4alpha and copied 2019-09-26-raspbian-buster-lite.img to card.  Mounted image and touched ssh file in the boot partition mounted at /media. Copied in wpa_supplicant.conf file that refers to my network.  Unmounted, and put SD card in a PI 0 W and powered on.  Changed password, node name, and set time zone to UTC.  I then rebooted - these last two things are not in the procedure.  Updated/upgraded raspbian using standard raspbian install procedures.  Then install nodejs, npm, and git.  Got repository, did npm install, and then configured for Baton Rouge (30.4583, -91.1403).  Found that when I used two words in quotes, the name wasn't put into the index.html file.  I may want to change that.  Copied service file to /lib and enabled service.  Rebooted.  On my MAC, I used Firefox to pull up the server page.  It said BatonRouge, radar looked likely.  Forecast was present along with current connections and flood alerts that extended out into February.
+Results: PASSED
+Test End Time: 1/23/2020 13:19 CST
+Tester: Mark Broihier
+ID:DISPLAY-0010
+Test Start Time: 1/23/2020 17:44 CST
+Log data:
+Had local time of 17:43.  Temperature of 65 which matched table.  Wind of 5 mph which matched table. Slight chance of rain as the condition which matched the table.  There are two flood alerts.  A forecast table was displayed with days from today (Thursday) to next Wednesday.
+Results: PASSED
+Test End Time: 1/23/2020 17:50 CST
+Tester: Mark Broihier
+ID:DISPLAY-0030
+Test Start Time: 1/23/2020 17:51 CST
+Log data:
+Saw current time, temperature, wind, conditions, and forecast table.  Graph of temperatures is display for 30 hour interval - 6 old, 24 new.  When I pressed the display all box, all hours of forecast information was displayed and the box was checked.  When I pressed it again, the original forecast table was displayed.
+Results: PASSED
+Test End Time: 1/23/2020 17:56 CST
+Tester: Mark Broihier
+ID:DISPLAY-0020
+Test Start Time: 1/24/2020 8:47 CST
+Log data:
+Running Safari browser on Mac Book with Javascript off.  Pulled up sfwiWeather:3000 and got BatonRouge, no moving radar, no graph of temperature over time.  I see current temperature, wind, temperature range, conditions, forecast table, and alerts.  Forecast table does not change when display all button is pressed.  This is expected since Javascript is off.
+Results: PASSED
+Test End Time: 1/24/2020 8:52 CST
+Tester: Mark Broihier
+ID:DISPLAY-0040
+Test Start Time: 1/24/2020 9:05 CST
+Log data:
+Logged onto RPI 0 sfwiWeather.  Did curl command and found zone ILC059 with 5 alerts. API says it is an invalid zone, I could not find a coordinate.  Tried AKC188 (also 5 alerts) and again found that zone was not found.  I looked at the alert data using curl and found that AKC188 referred to Fairbanks and used Google to find coordinate for it (64.8354, -147.7767).  Used that for configuration.  Alerts did not show up.  They are present in API output.  Entered debug mode (stopped service, started by hand with log going to console).  Fairbanks is apparently not the right alert area - Fairbanks issued the alert.  Trying Kobulk at 66.8684, -156.8746.  There is no radar station there.  Went back to ILC059 and found references to Gallatin IL (37.7102, -88.1832).  Configured to that location.  Got 5 alerts.
+
+Test case setup should be modified to change how a high alert location is found.  Also, might want to think of displaying weather information for locations without radar.
+Results: PASSED
+Test End Time: 1/24/2020 9:53 CST
+Tester: Mark Broihier
+ID:DISPLAY-0050
+Test Start Time: 1/25/2020 09:11 CST
+Log data:
+https://validator.w3.org
+
+The validator said "show" was not a valid value of "display".
+
+</td></tr><tr style="display:show"><td>
+Results: FAILED
+Test End Time: 1/25/2020 09:17 CST
+Tester: Mark Broihier
+ID:UPDATE-0010
+Test Start Time: 1/25/2020 09:22 CST
+Log data:
+Had to install tcpdump onto PI 0 W sfwiWeather.
+
+Used command: 
+pi@sfwiWeather:~ $ sudo tcpdump -i wlan0 host api.weather.gov -vv | tee update-0010.log
+
+Let it sit two hours.  During this time I did a ping to api.weather.gov to verify the IP address showing up in the trace.  It matched.
+
+Stopped tcpdump at 11:28.
+
+Scanned for references to api.weather.gov that weren't https. Only saw pings from earlier referenced command (ICMP).
+
+Saw some 4 and 14 (16:18 to 16:32) minute gaps which surprised me.  The most I had expected to see was 2 minutes.  Alert requests should go out every two minutes, forecast requests should go out every 10 minutes.  Most deltas in time were 2 minutes, but there were some very large ones.  I have to fail this since the alert requests need to respond in a timely manner.
+Results: FAILED
+Test End Time: 1/25/2020 11:39 CST
+Tester: Mark Broihier
+ID:PERF-0010
+Test Start Time: 1/25/2020 11:42 CST
+Log data:
+Sample 1: 1 second, sample 2: 0 (resolution is 1 second), sample 3: 1 second, sample 4: 0, sample 5: 1 second, sample 6: 1 second, sample 7: 1 second, sample 8: 1 second; sample 9: 0; and sample 10: 1 second.
+
+All samples were less than 3 seconds. 
+Results: PASSED
+Test End Time: 1/25/2020 11:50 CST
+Tester: Mark Broihier
+ID:HILOW-0000
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+The automated tests didn't pass at first because the test data is set for zone -10 (Pacific/Honolulu) and the time zones set for the server and driver were American/Central.  I set all time zones to Pacific/Honolulu.
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0010
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0020
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0030
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0040
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0050
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0060
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0070
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:HILOW-0080
+Test Start Time: 1/25/2020 12:37 CST
+Log data:
+see log for HILOW-0000
+Results: PASSED
+Test End Time: 1/25/2020 12:55 CST
+Tester: Mark Broihier
+ID:BROKEN-0000
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0010
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0020
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0030
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0040
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0050
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0060
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0070
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0080
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0090
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:BROKEN-0100
+Test Start Time: 1/25/2020 12:59 CST
+Log data:
+
+Results: PASSED
+Test End Time: 1/25/2020 13:06 CST
+Tester: Mark Broihier
+ID:INIT-0020
+Test Start Time: 1/25/2020 20:08 Greenwich Mean Time
+Log data:
+Installing on my Stretch node rp2.  This node already had nodejs, npm, and git installed.  Went straight to clone. Built a server for Honolulu (./configure 21.3156 -157.858 Honolulu).  I did not boot the node to start the service.  I used start after the enable command.  On pi4alpha, I brought up a browser to rpi2.local:3000 and the web page was presented as expected.
+Results: PASSED
+Test End Time: 1/25/2020 20:22 Greenwich Mean Time
+Tester: Mark Broihier

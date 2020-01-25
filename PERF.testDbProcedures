@@ -1,0 +1,2 @@
+PERF-0010
+/step From another computer on the sfwiWeather's network that is running Linux, run the following commands on a single line: /bullet date ; curl -X GET "http://sfwiWeather:3000" ; date \bullet\step /step Measure the difference between the time stamps.\step /step Repeat this 9 more times.\step /step Verify that all time differences are less than three seconds.\step 

@@ -1,0 +1,4 @@
+INIT-0010
+The PI will boot and start a server listening to the port 3000 of node sfwiWeather on a private network.
+INIT-0020
+The server will come up when commanded and display that it is listening and will not display any errors.  A HTTP client will be able to query the server and a page consistent with the configured location will be displayed.

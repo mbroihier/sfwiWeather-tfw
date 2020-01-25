@@ -1,0 +1,10 @@
+DISPLAY-0010
+Display contains current conditions and forecast information
+DISPLAY-0020
+Display contains current conditions and forecast information with JavaScript off on browser
+DISPLAY-0030
+If JavaScript is enabled, the user has the ability to see more detailed information.
+DISPLAY-0040
+Display contains current conditions and forecast information at a location with alerts
+DISPLAY-0050
+Display uses HTML5

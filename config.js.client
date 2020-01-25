@@ -1,0 +1,10 @@
+var config = {
+     protocol     : "http:",
+     port         : 3030,
+     forecastURL  : "pi4alpha.local",
+     forecastPath : "/gridpoints/LIX/27,110/forecast/hourly",
+     radarStation : "LIX",
+     zone         : "LAC033",
+     timeZone     : "Pacific/Honolulu"
+};
+module.exports=config;

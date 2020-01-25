@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+DISPLAY-0030</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+If JavaScript is enabled, the user has the ability to see more detailed information.</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>When an HTTP client performs a GET to the site URL, the server shall provide an index.html page that has the following information:</li><li>The page shall have a title that includes the provisioned location name.</li><li>The page shall have the temperature.</li><li>The page shall have the wind speed and direction.</li><li>The page shall have a &quot;current conditions&quot; statement (eg cloudy, sunny&amp;#8230;).</li><li>The page shall have a timestamp displayed in the local time zone of the configured weather location.</li><li>The page shall have weather alerts issued by the nation weather service (NWS).</li><li>The page shall have forecasted temperature, wind, and condition information.</li><li>The client user interface shall only have controls that are associated with changing the presentation of the amount of information.</li><li>The initial display of a client query shall be minimal.</li><li>By selecting a checkbox or checkboxes, the user shall be able to see more information if Javascript is enabled.</li></ul>
+<p>This test case assures that when JavaScript is enabled, the user can see more detailed information.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li>Test case INST-0010 has been run.</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> Using a browser, access the site. </li><li> Verify that the current temperature is displayed. </li><li> Verify that the current wind speed and direction are displayed. </li><li> Verify that the current conditions are displayed. </li><li> Verify that future (forecast) weather information is displayed. </li><li> Check if there are alerts (there may not be any) </li><li> Verify there is a timestamp on the page that corresponds to the current local time. </li><li> Verify that the page has a title that refers to the location provisioned. </li><li> Confirm that the forecast table has a checkbox that is labeled &quot;display all&quot; and the box is unchecked. </li><li> Press the checkbox. </li><li> Verify that more forecast information is displayed in the table and the box is now checked. </li><li> Press the checkbox. </li><li> Verify that the table returns to the original state. </li><li> Verify that there is a temperature graph showing the temperature throughout the next 24 hours.</li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+The displayed page will have the required displays and that with JavaScript, the amount of forecast data can be controlled and the temperature can be plotted.</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+PASSED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li></li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+SFWIWEATHER-PR-QUERY-010, SFWIWEATHER-PR-QUERY-010.001, SFWIWEATHER-PR-QUERY-010.002, SFWIWEATHER-PR-QUERY-010.003, SFWIWEATHER-PR-QUERY-010.004, SFWIWEATHER-PR-QUERY-010.005, SFWIWEATHER-PR-QUERY-010.006, SFWIWEATHER-PR-QUERY-010.007, SFWIWEATHER-PR-CONTROLS-010, SFWIWEATHER-PR-CONTROLS-010.001, SFWIWEATHER-PR-CONTROLS-010.002</td>
+</tr>
+</table>
+</body>
+</html>

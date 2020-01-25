@@ -1,0 +1,18 @@
+HILOW-0000: None
+This test case is used only to setup the initial state of the weather server.  It defaults to always pass.
+HILOW-0010: None
+With ever increasing windspeed and tempertures, show that the temperature graph and ranges over the week are increasing as expected.
+HILOW-0020: None
+With ever decreasing windspeed and tempertures, show that the temperature graph and ranges over the week are decreasing as expected.
+HILOW-0030: None
+Given an API forecast reply that has a temperature that is too hot, illustrate that the prior forecast is unaltered.
+HILOW-0040: None
+Given an API forecast reply that has a temperature that is too cold, illustrate that the prior forecast is unaltered.
+HILOW-0050: None
+Given an API forecast reply that has a unreasonable windspeed, illustrate that the prior forecast is unaltered.
+HILOW-0060: None
+Given an API forecast reply that has a negative windspeed, illustrate that the prior forecast is unaltered.
+HILOW-0070: None
+Given an API forecast reply that has a windspeed and temperature just within tolerance, illustrate that the forecast is updated.
+HILOW-0080: None
+Given an API forecast reply that has a windspeed and temperature just within tolerance, illustrate that the forecast is updated.

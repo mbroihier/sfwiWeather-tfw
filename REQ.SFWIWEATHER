@@ -1,0 +1,64 @@
+SFWIWEATHER-EXT-IF-010
+sfwiWeather shall display local weather information to a client using HTML5 and Javascript.  
+SFWIWEATHER-EXT-IF-020
+sfwiWeather displays shall function without client side JavaScript.  When JavaScript is not available, a client will still be able to display:
+SFWIWEATHER-EXT-IF-020.001
+sfwiWeather shall be able to display current temperature and units.
+SFWIWEATHER-EXT-IF-020.002
+sfwiWeather shall be able to display current wind speed and direction and units.
+SFWIWEATHER-EXT-IF-020.003
+sfwiWeather shall be able to display the “current condition” statement.
+SFWIWEATHER-EXT-IF-020.004
+sfwiWeather shall be able to display a short version of the forecast information.
+SFWIWEATHER-EXT-IF-020.005
+sfwiWeather shall be able to display current alerts.
+SFWIWEATHER-EXT-IF-030
+sfwiWeather server shall be configured prior to starting for the purpose of collecting weather information for a location within the United States.  That configuration will include:
+SFWIWEATHER-EXT-IF-030.001
+sfwiWeather shall be configured with a latitude and longitude within the United States. Units of latitude and longitude will be degrees, positive will be Northern Hemisphere and Eastern Hemisphere.  
+SFWIWEATHER-EXT-IF-030.002
+sfwiWeather shall be configured with a location name.
+SFWIWEATHER-EXT-IF-040
+sfwiWeather shall collect weather information only from public sites available via the world wide web.
+SFWIWEATHER-EXT-IF-040.001
+sfwiWeather shall collect weather information only using secure interfaces (HTTPS).
+SFWIWEATHER-EXT-IF-050
+sfwiWeather shall only expose itself on a private network for the purpose of security.
+SFWIWEATHER-PR-INIT-010
+When the server is running, it shall report runtime and communication errors to a log file viewable by an administrator.
+SFWIWEATHER-PR-INIT-020
+If the server successfully initializes, it shall report to the log that it is listening to a HTTP port. 
+SFWIWEATHER-PR-INFO-010
+The server shall collect information to be presented on a client HTTP query GET.  
+SFWIWEATHER-PR-INFO-020
+The collection interval shall be less than half the update interval of the data being collected for those interfaces updated periodically (eg forecast). 
+SFWIWEATHER-PR-INFO-030
+Asynchronous updates (eg alerts) shall be collected on demand. 
+SFWIWEATHER-PR-QUERY-010
+When an HTTP client performs a GET to the site URL, the server shall provide an index.html page that has the following information:
+SFWIWEATHER-PR-QUERY-010.001
+The page shall have a title that includes the provisioned location name.
+SFWIWEATHER-PR-QUERY-010.002
+The page shall have the temperature.
+SFWIWEATHER-PR-QUERY-010.003
+The page shall have the wind speed and direction.
+SFWIWEATHER-PR-QUERY-010.004
+The page shall have a “current conditions” statement (eg cloudy, sunny…).
+SFWIWEATHER-PR-QUERY-010.005
+The page shall have a timestamp displayed in the local time zone of the configured weather location.
+SFWIWEATHER-PR-QUERY-010.006
+The page shall have weather alerts issued by the nation weather service (NWS).
+SFWIWEATHER-PR-QUERY-010.007
+The page shall have forecasted temperature, wind, and condition information.
+SFWIWEATHER-PR-CONTROLS-010
+The client user interface shall only have controls that are associated with changing the presentation of the amount of information. 
+SFWIWEATHER-PR-CONTROLS-010.001
+The initial display of a client query shall be minimal.
+SFWIWEATHER-PR-CONTROLS-010.002
+By selecting a checkbox or checkboxes, the user shall be able to see more information if Javascript is enabled.
+SFWIWEATHER-PROV-010
+  The application shall be able to run on a Raspberry PI 0 with 8 gigabytes or less of memory on a version of Raspbian Linux Stretch or above.  Note that 8 gigabytes was selected because it is the smallest practical SD card to purchase for the Raspberry PI.
+SFWIWEATHER-PROV-020
+  The application shall be started automatically as a service after it has been configured and installed via the installation instructions.  Note that in this mode of operation, the log file will be sent to /dev/null to prevent excess writing to the SD card. 
+SFWIWEATHER-PERF-010
+  The client shall be able to receive a response from the server in under three seconds when there are no other clients being served.

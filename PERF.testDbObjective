@@ -1,0 +1,2 @@
+PERF-0010:SFWIWEATHER-PERF-010
+This test case times the end to end response to a query and verifies that, on an unloaded system (this appliance is only meant to run on a small home network), the response time of the query is under three seconds.

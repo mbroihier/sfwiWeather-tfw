@@ -1,0 +1,22 @@
+BROKEN-0000: None
+This test case is used only to setup the initial state of the weather server.  It defaults to always pass.
+BROKEN-0010: None
+This test case verifies that the server is in a good state prior to sending bad API responses.
+BROKEN-0020:None
+This test case confirms that the server survives a blank forecast response from the API.
+BROKEN-0030:None
+This test case confirms that the server survives a forecast response from the API that has no periods field.
+BROKEN-0040:None
+This test case confirms that the server survives a forecast response from the API that has no windspeed field.
+BROKEN-0050:None
+This test case confirms that the server survives a forecast response from the API that has no wind direction field.
+BROKEN-0060:None
+This test case confirms that the server survives a forecast response from the API that has no start time field.
+BROKEN-0070:None
+This test case confirms that the server survives a forecast response from the API that has no short forecast field.
+BROKEN-0080:None
+This test case confirms that the server survives an alert response from the API that has no features field.
+BROKEN-0090:None
+This test case confirms that the server survives an alert response from the API that has no properties field.
+BROKEN-0100:None
+This test case confirms that the server survives an alert response from the API that has no headline field.

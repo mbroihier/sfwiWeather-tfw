@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+UPDATE-0010</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+Confirm the Update Frequency and the Use of HTTPS to query the API</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>sfwiWeather shall collect weather information only from public sites available via the world wide web.</li><li>sfwiWeather shall collect weather information only using secure interfaces (HTTPS).</li><li>The server shall collect information to be presented on a client HTTP query GET.</li><li>The collection interval shall be less than half the update interval of the data being collected for those interfaces updated periodically (eg forecast).</li><li>Asynchronous updates (eg alerts) shall be collected on demand.</li></ul>
+<p>This test case confirms that the server collects weather data from the API at appropriate rates and that HTTPS is used to collect the data.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li>INST-0020 must have been run prior to this test case.</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> Using tcpdump on the server computer, monitor queries to api.weather.gov. </li><li> api.weather.gov forecasts should be updated every hour, so make sure the queries occur at least every 1/2 hour. </li><li> Verify the queries are over the https port (443).</li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+The API queries will use HTTPS and they will be faster than 2x the update rates of the forecast information and on demand for the alert data.</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+FAILED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li></li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+SFWIWEATHER-EXT-IF-040, SFWIWEATHER-EXT-IF-040.001, SFWIWEATHER-PR-INFO-010, SFWIWEATHER-PR-INFO-020, SFWIWEATHER-PR-INFO-030</td>
+</tr>
+</table>
+</body>
+</html>

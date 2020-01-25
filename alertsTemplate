@@ -1,0 +1,134 @@
+{
+    "@context": [
+        "https://raw.githubusercontent.com/geojson/geojson-ld/master/contexts/geojson-base.jsonld",
+        {
+            "wx": "https://api.weather.gov/ontology#",
+            "@vocab": "https://api.weather.gov/ontology#"
+        }
+    ],
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3981617-3380013",
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "@id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3981617-3380013",
+                "@type": "wx:Alert",
+                "id": "NWS-IDP-PROD-3981617-3380013",
+                "areaDesc": "Kona; Waianae Coast; Kauai Windward; Maui Windward West; Windward Haleakala; Molokai Leeward; Oahu North Shore; Oahu Koolau; Niihau; Kauai Leeward; Molokai Windward",
+                "geocode": {
+                    "UGC": [
+                        "HIZ023",
+                        "HIZ006",
+                        "HIZ002",
+                        "HIZ017",
+                        "HIZ020",
+                        "HIZ013",
+                        "HIZ007",
+                        "HIZ008",
+                        "HIZ001",
+                        "HIZ003",
+                        "HIZ012"
+                    ],
+                    "SAME": [
+                        "015001",
+                        "015003",
+                        "015007",
+                        "015009"
+                    ]
+                },
+                "affectedZones": [
+                    "https://api.weather.gov/zones/forecast/HIZ023",
+                    "https://api.weather.gov/zones/forecast/HIZ006",
+                    "https://api.weather.gov/zones/forecast/HIZ002",
+                    "https://api.weather.gov/zones/forecast/HIZ017",
+                    "https://api.weather.gov/zones/forecast/HIZ020",
+                    "https://api.weather.gov/zones/forecast/HIZ013",
+                    "https://api.weather.gov/zones/forecast/HIZ007",
+                    "https://api.weather.gov/zones/forecast/HIZ008",
+                    "https://api.weather.gov/zones/forecast/HIZ001",
+                    "https://api.weather.gov/zones/forecast/HIZ003",
+                    "https://api.weather.gov/zones/forecast/HIZ012"
+                ],
+                "references": [
+                    {
+                        "@id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3979635-3378471",
+                        "identifier": "NWS-IDP-PROD-3979635-3378471",
+                        "sender": "w-nws.webmaster@noaa.gov",
+                        "sent": "2019-12-30T03:39:00-10:00"
+                    },
+                    {
+                        "@id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3980817-3379390",
+                        "identifier": "NWS-IDP-PROD-3980817-3379390",
+                        "sender": "w-nws.webmaster@noaa.gov",
+                        "sent": "2019-12-30T17:29:00-10:00"
+                    },
+                    {
+                        "@id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3980816-3379389",
+                        "identifier": "NWS-IDP-PROD-3980816-3379389",
+                        "sender": "w-nws.webmaster@noaa.gov",
+                        "sent": "2019-12-30T17:29:00-10:00"
+                    },
+                    {
+                        "@id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3978474-3377628",
+                        "identifier": "NWS-IDP-PROD-3978474-3377628",
+                        "sender": "w-nws.webmaster@noaa.gov",
+                        "sent": "2019-12-29T15:16:00-10:00"
+                    },
+                    {
+                        "@id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3980597-3379210",
+                        "identifier": "NWS-IDP-PROD-3980597-3379210",
+                        "sender": "w-nws.webmaster@noaa.gov",
+                        "sent": "2019-12-30T15:32:00-10:00"
+                    },
+                    {
+                        "@id": "https://api.weather.gov/alerts/NWS-IDP-PROD-3980596-3379209",
+                        "identifier": "NWS-IDP-PROD-3980596-3379209",
+                        "sender": "w-nws.webmaster@noaa.gov",
+                        "sent": "2019-12-30T15:32:00-10:00"
+                    }
+                ],
+                "sent": "2019-12-31T04:00:00-10:00",
+                "effective": "2019-12-31T04:00:00-10:00",
+                "onset": "2019-12-31T04:00:00-10:00",
+                "expires": "2019-12-31T17:00:00-10:00",
+                "ends": "2020-01-01T06:00:00-10:00",
+                "status": "Actual",
+                "messageType": "Update",
+                "category": "Met",
+                "severity": "Moderate",
+                "certainty": "Likely",
+                "urgency": "Expected",
+                "event": "High Surf Warning",
+                "sender": "w-nws.webmaster@noaa.gov",
+                "senderName": "NWS Honolulu HI",
+                "headline": "High Surf Warning issued December 31 at 4:00AM HST until January 1 at 6:00AM HST by NWS Honolulu HI",
+                "description": "...HIGH SURF WARNING FOR NORTH AND WEST FACING SHORES OF NIIHAU\nKAUAI OAHU AND MOLOKAI AND FOR NORTH FACING SHORES OF MAUI...\n...HIGH SURF WARNING FOR WEST FACING SHORES OF THE BIG ISLAND...\n\n.A hurricane-force low produced an extra large northwest swell\nthat will be producing hazardous surf across exposed north and\nwest facing shores through tonight. Surf is currently peaking this\nmorning and is expected to subside later this afternoon into\ntonight.\n\n* WHAT...Surf heights of 30 to 40 feet along north and west facing\nshores of Niihau and Kauai today, lowering to 22 to 30 feet\ntonight. Surf heights of 25 to 35 feet along north facing shores\nof Oahu, Molokai and Maui today, lowering to 20 to 28 feet\ntonight. Surf heights of 18 to 26 feet along west facing shores\nof Oahu and Molokai today, lowering to 14 to 20 feet tonight.\nSurf heights of 10 to 16 feet along west facing shores of the\nBig Island through tonight.\n\n* WHERE...North and west facing shores of Niihau, Kauai, Oahu,\nMolokai, and north facing shores of Maui and west facing shores\nof the Big Island.\n\n* WHEN...Until 6 AM New Year's Day.\n\n* IMPACTS...Very High...Expect ocean water surging over the\ncoastline, creating the potential for damage to coastal\nproperties and infrastructure. Powerful currents will be\npresent at most beaches. Large breaking waves and strong\ncurrents may impact harbor entrances and channels causing\nchallenging boat handling. Anyone entering the water could face\ndeath.",
+                "instruction": "Large, breaking surf, significant shorebreak, and dangerous\ncurrents make entering the water very hazardous.\n\nStay well away from the water's edge along the affected shorelines.\nUse extreme caution when launching or landing boats along the\naffected coasts. Ensure that boats are hauled well away from the\nshore.",
+                "response": "Avoid",
+                "parameters": {
+                    "NWSheadline": [
+                        "HIGH SURF WARNING REMAINS IN EFFECT UNTIL 6 AM HST WEDNESDAY"
+                    ],
+                    "VTEC": [
+                        "/O.CON.PHFO.SU.W.0019.000000T0000Z-200101T1600Z/"
+                    ],
+                    "PIL": [
+                        "HFOCFWHFO"
+                    ],
+                    "BLOCKCHANNEL": [
+                        "CMAS",
+                        "EAS",
+                        "NWEM"
+                    ],
+                    "eventEndingTime": [
+                        "2020-01-01T06:00:00-10:00"
+                    ]
+                }
+            }
+        }
+    ],
+    "title": "current watches, warnings, and advisories for Oahu in Honolulu County (HIC003) HI",
+    "updated": "2019-12-31T14:00:54+00:00"
+}

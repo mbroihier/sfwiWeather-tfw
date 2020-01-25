@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+INIT-0020</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+Installation of the weather server on an existing PI running Stretch</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>When the server is running, it shall report runtime and communication errors to a log file viewable by an administrator.</li><li>If the server successfully initializes, it shall report to the log that it is listening to a HTTP port.</li></ul>
+<p>This test case illustrates the that repository can be installed on an existing PI running Stretch.  In this case, the installation will deviate from the repository that creates an &quot;appliance&quot;.  This illustrates how the server can be run in a mode that is useful for debugging.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li>Existing PI with about 4 Gig of spare memory running Raspbian Stretch.</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> Log onto the PI account of the preinstalled PI. </li><li> Ignore the GitHub.com/mbroihier/sfwiWeather installation instructions up to step 5. </li><li> Execute instructions 5 to 14. </li><li> Start the weather server using the command: node weather.js </li><li> Verify that the server reports that it is listening. </li><li> Verify that no errors are reported. </li><li> Using a browser on another computer in the local network, connect to the server by using the node name of the sever and the port the server is listening on (e.g. http://rpiOther:3000). </li><li> Verify a page is displayed in the browser that is the expected location being reported by the server.</li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+The server will come up when commanded and display that it is listening and will not display any errors.  A HTTP client will be able to query the server and a page consistent with the configured location will be displayed.</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+PASSED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li></li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+SFWIWEATHER-PR-INIT-010, SFWIWEATHER-PR-INIT-020</td>
+</tr>
+</table>
+</body>
+</html>

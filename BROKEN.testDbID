@@ -1,0 +1,22 @@
+BROKEN-0000
+Test category setup
+BROKEN-0010
+All good API responses
+BROKEN-0020
+Blank forecast response
+BROKEN-0030
+No periods field in forecast response
+BROKEN-0040
+No windspeed field in forecast response
+BROKEN-0050
+No wind direction field in forecast response
+BROKEN-0060
+No start time field in forecast response
+BROKEN-0070
+No short forecast field in the forecast response
+BROKEN-0080
+No features field in an alert response
+BROKEN-0090
+No properties field in an alert response
+BROKEN-0100
+No headline field in an alert response

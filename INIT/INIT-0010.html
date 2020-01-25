@@ -1,0 +1,82 @@
+<?xml version="1.0" ?><html>
+<style>
+body { background-color: white; }
+body { font-family: sans-serif; }
+li { font-size: 80%; }
+</style>
+<body>
+<table BORDER="" WIDTH="90%">
+<tr>
+<td>
+Test Case
+</td>
+<td id="testCaseId">
+INIT-0010</td>
+</tr>
+<tr>
+<td>
+Title
+</td>
+<td id="title">
+Install repository on a fresh Raspberry PI</td>
+</tr>
+<tr>
+<td>
+Objective
+</td>
+<td id="objective"><p>This test case is intended to verify the following implied or specified requirements:</p>
+<ul id="requirementsList">
+<li>sfwiWeather server shall be configured prior to starting for the purpose of collecting weather information for a location within the United States.  That configuration will include:</li><li>sfwiWeather shall be configured with a latitude and longitude within the United States. Units of latitude and longitude will be degrees, positive will be Northern Hemisphere and Eastern Hemisphere.</li><li>sfwiWeather shall be configured with a location name.</li><li>The application shall be able to run on a Raspberry PI 0 with 8 gigabytes or less of memory on a version of Raspbian Linux Stretch or above.  Note that 8 gigabytes was selected because it is the smallest practical SD card to purchase for the Raspberry PI.</li><li>The application shall be started automatically as a service after it has been configured and installed via the installation instructions.  Note that in this mode of operation, the log file will be sent to /dev/null to prevent excess writing to the SD card.</li></ul>
+<p>This test case verifies the installation procedure in the repository &quot;readme&quot; file.  Most of what is being tested here are implied requirements.  That is, upon completion of installation, the server should run without error and display information to a client.</p></td>
+</tr>
+<tr>
+<td>
+Setup
+</td>
+<td>
+<ul id="setup">
+<li>Buster Raspbian image is required.</li><li>8 Gig or more SD card (contents will be overwritten during install)</li><li>PI 0 W</li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Actions
+</td>
+<td>
+<ol id="actions">
+<li> Follow the instructions in the readme file in the github.com repository /mbroihier/sfwiWeather.  When configuring, use a location of your choice within the US. </li><li> If errors are stated during the configuration and the location should have been a valid US coordinate and there is a radar station supporting that location, fail this test case. </li><li> If configuration passed, a browser given the sfwiWeather:3000 URL displays weather information and it looks correct/reasonable, pass this test.</li></ol>
+</td>
+</tr>
+<tr>
+<td>
+Expected
+</td>
+<td id="expected">
+The PI will boot and start a server listening to the port 3000 of node sfwiWeather on a private network.</td>
+</tr>
+<tr>
+<td>
+Results
+</td>
+<td id="results">
+PASSED</td>
+</tr>
+<tr>
+<td>
+Cleanup
+</td>
+<td>
+<ul id="cleanup">
+<li></li></ul>
+</td>
+</tr>
+<tr>
+<td>
+Requirements
+</td>
+<td id="requirements">
+SFWIWEATHER-EXT-IF-030, SFWIWEATHER-EXT-IF-030.001, SFWIWEATHER-EXT-IF-030.002, SFWIWEATHER-PROV-010, SFWIWEATHER-PROV-020</td>
+</tr>
+</table>
+</body>
+</html>

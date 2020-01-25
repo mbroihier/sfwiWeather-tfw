@@ -1,0 +1,6 @@
+TEST-0000: None
+This test case is used only to setup the initial state of the weather server.  It defaults to always pass.
+TEST-0010: None
+With ever increasing windspeed and tempertures, show that the temperature graph and ranges over the week are increasing as expected.
+TEST-0020: None
+With ever decreasing windspeed and tempertures, show that the temperature graph and ranges over the week are decreasing as expected.

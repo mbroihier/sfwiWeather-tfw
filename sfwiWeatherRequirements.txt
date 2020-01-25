@@ -1,0 +1,136 @@
+﻿
+
+
+
+
+
+Stop Fiddling With It Weather
+
+
+
+
+
+Mark Broihier
+January 18, 2020
+
+
+
+
+
+
+Table of Contents
+ 1 Introduction	3
+ 1.1 Scope	3
+ 1.2 Features	3
+ 1.3 Acronyms	3
+ 2 General Overview	3
+ 3 sfwiWeather	3
+ 3.1 Theory of Operation	3
+ 3.2 External Interface Requirements	4
+ 3.3 Processing Requirements	5
+ 3.3.1 Startup	5
+ 3.3.2 Information Collection	5
+ 3.3.3 Client Query	5
+ 3.3.4 Client Controls	6
+ 3.4 Provisioning Requirements	6
+ 3.5 Performance Requirements	6
+
+ 1  Introduction
+The purpose of this document is to define the requirements for a web server that provides simple, common weather information for a location.  This server will reside on a home network, collect information from US government sources, and display the information to a requesting client that is likely a standard web browser.
+
+ 1.1  Scope
+This document defines the interface, processing, and displays for a web server that displays weather information for a provided location.  The server will only collect and display weather related information.  The server will store no information from clients except for the temporary purpose of sustaining communication to transmit relevant information to the client.  The philosophy of my Stop “Fiddling” With It (SFWI/sfwi) application series is to provide clean simple services free of feature bloat and with a stable interface/look.
+
+ 1.2  Features
+The Stop Fiddling With It Weather (sfwiWeather) server will periodically collect current and forecasted information from US government weather services, consolidate the information, and display it to a web browser or other HTTP client.
+
+ 1.3  Acronyms
+API – Application Programming Interface
+HTTP – Hypertext Transfer Protocol
+HTTPS – Hypertext Transfer Protocol Secure
+NWS – National Weather Service
+SFWI – Stop “Fiddling” with It
+
+ 2  General Overview
+The “Stop Fiddling With It (SFWI/sfwi)” series of applications that I'm creating is intended to simplify my personal world.  The reason this particular service is being developed is because mobile weather applications that are “free” are now so bloated with ads one can’t navigate through the screens without triggering undesired actions.  The performance is so unreliable (eg radar displays) that the thought of paying for the app to remove the advertisements is unthinkable.  What I want for weather information isn’t that difficult to present and requires no bling. 
+ 3  sfwiWeather
+The following paragraphs outline the operation of sfwiWeather and the detailed requirements that define the expected behavior of the app.
+ 3.1  Theory of Operation
+sfwiWeather will be a HTTP web server intended to run on a local/protected network with access to the internet.  The server will be configured to collect information for a location within the United States.  Once configured, it will be initiated and periodically query the api.weather.gov site for information, format it, and provide it to clients that connect to the server.
+
+ 3.2  External Interface Requirements
+ID::SFWIWEATHER-EXT-IF-010 sfwiWeather shall display local weather information to a client using HTML5 and Javascript.  
+
+ID::SFWIWEATHER-EXT-IF-020 sfwiWeather displays shall function without client side JavaScript.  When JavaScript is not available, a client will still be able to display:
+
+ID::SFWIWEATHER-EXT-IF-020.001 sfwiWeather shall be able to display current temperature and units.
+
+ID::SFWIWEATHER-EXT-IF-020.002 sfwiWeather shall be able to display current wind speed and direction and units.
+
+ID::SFWIWEATHER-EXT-IF-020.003 sfwiWeather shall be able to display the “current condition” statement.
+
+ID::SFWIWEATHER-EXT-IF-020.004 sfwiWeather shall be able to display a short version of the forecast information.
+
+ID::SFWIWEATHER-EXT-IF-020.005 sfwiWeather shall be able to display current alerts.
+
+ID::SFWIWEATHER-EXT-IF-030 sfwiWeather server shall be configured prior to starting for the purpose of collecting weather information for a location within the United States.  That configuration will include:
+
+ID::SFWIWEATHER-EXT-IF-030.001 sfwiWeather shall be configured with a latitude and longitude within the United States. Units of latitude and longitude will be degrees, positive will be Northern Hemisphere and Eastern Hemisphere.  
+
+ID::SFWIWEATHER-EXT-IF-030.002 sfwiWeather shall be configured with a location name.
+
+ID::SFWIWEATHER-EXT-IF-040 sfwiWeather shall collect weather information only from public sites available via the world wide web.
+
+ID::SFWIWEATHER-EXT-IF-040.001 sfwiWeather shall collect weather information only using secure interfaces (HTTPS).
+
+ID::SFWIWEATHER-EXT-IF-050 sfwiWeather shall only expose itself on a private network for the purpose of security.
+
+ 3.3  Processing Requirements
+The following paragraphs identify the processing to be performed by the server.
+
+ 3.3.1  Startup
+ID::SFWIWEATHER-PR-INIT-010 When the server is running, it shall report runtime and communication errors to a log file viewable by an administrator.
+
+ID::SFWIWEATHER-PR-INIT-020 If the server successfully initializes, it shall report to the log that it is listening to a HTTP port. 
+ 3.3.2  Information Collection
+ID::SFWIWEATHER-PR-INFO-010 The server shall collect information to be presented on a client HTTP query GET.  
+
+ID::SFWIWEATHER-PR-INFO-020 The collection interval shall be less than half the update interval of the data being collected for those interfaces updated periodically (eg forecast). 
+
+ID::SFWIWEATHER-PR-INFO-030 Asynchronous updates (eg alerts) shall be collected on demand. 
+
+ 3.3.3  Client Query
+
+ID::SFWIWEATHER-PR-QUERY-010 When an HTTP client performs a GET to the site URL, the server shall provide an index.html page that has the following information:
+
+ID::SFWIWEATHER-PR-QUERY-010.001 The page shall have a title that includes the provisioned location name.
+
+ID::SFWIWEATHER-PR-QUERY-010.002 The page shall have the temperature.
+
+ID::SFWIWEATHER-PR-QUERY-010.003 The page shall have the wind speed and direction.
+
+ID::SFWIWEATHER-PR-QUERY-010.004 The page shall have a “current conditions” statement (eg cloudy, sunny…).
+
+ID::SFWIWEATHER-PR-QUERY-010.005 The page shall have a timestamp displayed in the local time zone of the configured weather location.
+
+ID::SFWIWEATHER-PR-QUERY-010.006 The page shall have weather alerts issued by the nation weather service (NWS).
+
+ID::SFWIWEATHER-PR-QUERY-010.007 The page shall have forecasted temperature, wind, and condition information.
+
+
+ 3.3.4  Client Controls
+ID::SFWIWEATHER-PR-CONTROLS-010 The client user interface shall only have controls that are associated with changing the presentation of the amount of information. 
+
+ID::SFWIWEATHER-PR-CONTROLS-010.001 The initial display of a client query shall be minimal.
+
+ID::SFWIWEATHER-PR-CONTROLS-010.002 By selecting a checkbox or checkboxes, the user shall be able to see more information if Javascript is enabled.
+
+ 3.4  Provisioning Requirements
+ID::SFWIWEATHER-PROV-010   The application shall be able to run on a Raspberry PI 0 with 8 gigabytes or less of memory on a version of Raspbian Linux Stretch or above.  Note that 8 gigabytes was selected because it is the smallest practical SD card to purchase for the Raspberry PI.
+
+ID::SFWIWEATHER-PROV-020   The application shall be started automatically as a service after it has been configured and installed via the installation instructions.  Note that in this mode of operation, the log file will be sent to /dev/null to prevent excess writing to the SD card. 
+
+ 3.5  Performance Requirements
+ID::SFWIWEATHER-PERF-010   The client shall be able to receive a response from the server in under three seconds when there are no other clients being served.
+
+

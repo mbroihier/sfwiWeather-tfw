@@ -1,0 +1,22 @@
+BROKEN-0000
+This test case is a setup for subsequent tests and expects nothing: {}
+BROKEN-0010
+This test case verifies that the server responds with good information.
+BROKEN-0020
+Server returns last processed good information.
+BROKEN-0030
+Server returns last processed good information.
+BROKEN-0040
+Server returns last processed good information.
+BROKEN-0050
+Server returns last processed good information.
+BROKEN-0060
+Server returns last processed good information.
+BROKEN-0070
+Server returns last processed good information.
+BROKEN-0080
+Server returns last processed good information.
+BROKEN-0090
+Server returns last processed good information.
+BROKEN-0100
+Server returns last processed good information.

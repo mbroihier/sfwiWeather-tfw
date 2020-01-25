@@ -1,0 +1,18 @@
+HILOW-0000
+Test category setup
+HILOW-0010
+Ever increasing wind and temperature
+HILOW-0020
+Ever increasing wind and temperature
+HILOW-0030
+Temperature exceeds range of temperature - high
+HILOW-0040
+Temperature exceeds range of temperature - low
+HILOW-0050
+Wind speed is negative
+HILOW-0060
+Wind speed is too fast
+HILOW-0070
+Wind speed and temperature are just within tolerance - high side
+HILOW-0080
+Wind speed and temperature are just within tolerance - low side

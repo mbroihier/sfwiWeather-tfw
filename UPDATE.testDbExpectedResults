@@ -1,0 +1,2 @@
+UPDATE-0010
+The API queries will use HTTPS and they will be faster than 2x the update rates of the forecast information and on demand for the alert data.

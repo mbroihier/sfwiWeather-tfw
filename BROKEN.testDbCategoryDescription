@@ -1,0 +1,1 @@
+This test category confirms proper operation of the server when the API responds with invalid or unexpected information.  This series of test cases was developed by hand and is meant to be run with the test driver using the command "node driver.js BROKEN" from within the sfwiWeather-tfw directory.
