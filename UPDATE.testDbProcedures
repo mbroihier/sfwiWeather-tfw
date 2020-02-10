@@ -1,2 +1,2 @@
 UPDATE-0010
-/step Using tcpdump on the server computer, monitor queries to api.weather.gov.\step /step api.weather.gov forecasts should be updated every hour, so make sure the queries occur at least every 1/2 hour.\step /step Verify the queries are over the https port (443).\step 
+/step Using tcpdump on the server computer, monitor queries to api.weather.gov. /bullet tcpdump -s0 -w update-0010.log.raw -c 20000 \bullet\step /step api.weather.gov forecasts should be updated every hour, so make sure the queries occur at least every 1/2 hour.\step /step Verify the queries are over the https port (443).\step 

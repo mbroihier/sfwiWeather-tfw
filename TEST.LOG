@@ -233,3 +233,24 @@ Installing on my Stretch node rp2.  This node already had nodejs, npm, and git i
 Results: PASSED
 Test End Time: 1/25/2020 20:22 Greenwich Mean Time
 Tester: Mark Broihier
+ID:DISPLAY-0050
+Test Start Time: 2/7/2020 09:47 CST
+Log data:
+Repeated test on PI 0 updated with HTML change recorded in commit ec3ce8f.  Again using https://validator.w3c.org.  This time got a "no errors or warnings to show" message.
+Results: PASSED
+Test End Time: 2/7/2020 09:52 CST
+Tester: Mark Broihier
+ID:UPDATE-0010
+Test Start Time: 2/7/2020 09:53 CST
+Log data:
+Rerunning this test with a modified procedure.  After investigating and duplicating the "error", I discovered that the "problem" was due to DNS producing slightly different destination addresses.  So I modified the collection process to collect the entire packets and now I post process the packets and screen for all https accesses.  I am again repeating this test on the PI 0 installation with commit version ec3ce8f (which has an HTML change and some console writes that complain when the API is not responding in a timely manner).  I used "sudo tcpdump -s0 -w update-0010.log.raw -c 20000" to record packets.  I started this a 10:00 CST.  The collection finished at 15:43 CST.  I then used "tcpdump -r update-0010.log.raw -n | grep .443 > t.t", and egrep "\[S" t.t > x.x to create a text file that had the SYN of all https sessions.  I scanned this file to make sure that all begin/end transactions completed in less than 150 seconds, that was not the case.  Continuing investigation.  I think the update rate is being affected by the latency of the API.
+Results: FAILED
+Test End Time: 2/7/2020 16:03 CST
+Tester: Mark Broihier
+ID:UPDATE-0010
+Test Start Time: 2/10/2020 12:52 CST
+Log data:
+This is rerun using commit 712dd7a.  This version better regulates the request intervals from the API.  The test was again run with the PI 0 previously installed (but updated with 712dd7a.  Again did "sudo tcpdump -s 0 -w update-0010.log.raw -c 20000" to capture packets.  I stopped the capture at 16:35.  Did "tcpdump -r update-0010.log.raw -n | grep .443 >t.t" and looked at the file.  Syn to syn time was no longer than 121 seconds showing the timing of query requests was stabilized at 2 minutes (this is the alert request interval).
+Results: PASSED
+Test End Time: 2/10/2020 16:40 CST
+Tester: Mark Broihier
