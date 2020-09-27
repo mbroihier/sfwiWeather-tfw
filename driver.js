@@ -46,14 +46,14 @@ var walkObjectAndTest = function (objectOne, objectTwo, state) {
             if (typeof objectOne[property] == 'object') {
                 state = walkObjectAndTest(objectOne[property], objectTwo[property], state);
             } else {
-                if (typeof objectOne[property] == 'string') {
+                if ((typeof objectOne[property] == 'string') || (typeof objectOne[property] == 'number')) {
                     if (objectOne[property] != objectTwo[property]) {
                         console.log(property, " --> ", objectOne[property], "does not match", objectTwo[property]);
                         console.log("Last Read Forecast:", lastReadForecast);
                         console.log("Last Read Alerts:", lastReadAlerts);
                         console.log("Last Read Expected Results:", lastReadExpectedResults);
                         state = false;
-                        break;
+                        //break;
                     }
                 } else {
                     console.log("Don't know how to handle", typeof objectOne[property]);
@@ -113,10 +113,14 @@ setInterval(function(){
                 let body = Buffer.concat(bodySegments);
                 let replyDOM = new jsdom.JSDOM(body);
                 let replyDocument = replyDOM.window.document;
+                console.log("parsing from server");
                 let serverObject = JSON.parse(replyDocument.body.textContent);
+                console.log("done - now expectedResults");
                 let expectedResultsObject = JSON.parse(expectedResults);
+                console.log("done");
                 //console.log("serverObject: ", serverObject);
                 //console.log("expectedResultsObject:", expectedResultsObject);
+                console.log("Server's forecast information came from:", serverObject["fileName"]);
                 let status = walkObjectAndTest(expectedResultsObject, serverObject, true);
                 if (status) {
                     console.log(testCase);

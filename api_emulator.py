@@ -42,14 +42,12 @@ class CommandInterpreter:
         self.commandType = ""
         self.parameterText = ""
         self.parameterList = []
-        self.results = { "hiLow"    : {},
+        self.results = { "forecastInfo"    : { 'temperature' : {}, 'windSpeed' : {}, 'windDirection' : {},
+                                               'shortForecast' : {}, 'highTemp' : {}, 'lowTemp' : {},
+                                               'foundIndexLow' : {}, 'foundIndexHigh' : {}, 'temperatureRange' : {} },
                          "alertInfo": [],
                          "display" : {} }
         self.allDays = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]
-        for day in self.allDays:
-            for hour in [ " 00", " 01", " 02", " 03", " 04", " 05", " 06", " 07", " 08", " 09", " 10", " 11",
-                          " 12", " 13", " 14", " 15", " 16", " 17", " 18", " 19", " 20", " 21", " 22", " 23" ]:
-                self.results['hiLow'][ day + hour + ":00" ] = ""
         self.forecastTemplatePattern = re.compile(r"^forecast template ")
         self.alertsTemplatePattern = re.compile(r"^alerts template ")
         self.incrementTemperaturePattern = re.compile(r"Increment temperature (-*\d+)")
@@ -176,20 +174,21 @@ class CommandInterpreter:
         temperature = 0
         sampled = False
         dontUpdate = False
+        firstSampleOfTheDay = 0
         #print(currentDay)
         #print(emulatorTime)
+        tempStorage = { 'temperatureRange' : {}, 'high' : {}, 'low' : {}, 'highIndex' : {}, 'lowIndex' : {} }
         for currentPeriod in workingObject['properties']['periods']:
             if not sampled:
                 if APITimeStringToTime(currentPeriod['startTime']) >= emulatorTime:
                     sampled = True
                     windSpeed = currentPeriod['windSpeed']
                     direction = currentPeriod['windDirection']
-                    temperature = currentPeriod['temperature']
+                    temperatureSampleTime = currentPeriod['startTime']
                     description = currentPeriod['shortForecast']
+                else:
+                    continue
             candidateDay = self.allDays[APITimeStringToTime(currentPeriod['startTime']).weekday()]
-            if currentDay == candidateDay:
-                #print("Skipping", currentDay)
-                continue
             if workingOnDay == "":
                 #print("First day to process", candidateDay)
                 high = None
@@ -198,12 +197,29 @@ class CommandInterpreter:
                 lowIndex = 0
                 index = 0
                 workingOnDay = candidateDay
+                firstSampleOfTheDay = APITimeStringToTime(currentPeriod['startTime'])
+                if firstSampleOfTheDay.hour != 0:
+                    if timeInClientFormatAscii(firstSampleOfTheDay) in self.results['forecastInfo']['temperatureRange']:
+                        timeStamp = timeInClientFormatAscii(firstSampleOfTheDay)
+                        low = self.results['forecastInfo']['lowTemp'][timeStamp]
+                        lowIndex = self.results['forecastInfo']['foundIndexLow'][timeStamp]
+                        high = self.results['forecastInfo']['highTemp'][timeStamp]
+                        highIndex = self.results['forecastInfo']['foundIndexHigh'][timeStamp]
+                        index = firstSampleOfTheDay.hour
             else:
-                if workingOnDay != candidateDay:
-                    if highIndex > lowIndex:
-                        dayHiLows[workingOnDay] = str(low) + u'\xc2\xb0' + "/" + str(high) + u'\xc2\xb0'
+                if workingOnDay != candidateDay:  # time to update day's results
+                    if highIndex >= lowIndex:
+                        hilow = str(low) + u'\xc2\xb0' + "/" + str(high) + u'\xc2\xb0'
                     else:
-                        dayHiLows[workingOnDay] = str(high) + u'\xc2\xb0' + "/" + str(low) + u'\xc2\xb0'
+                        hilow = str(high) + u'\xc2\xb0' + "/" + str(low) + u'\xc2\xb0'
+                    for hour in range(24 - firstSampleOfTheDay.hour):
+                        timeStamp = timeInClientFormatAscii(firstSampleOfTheDay + timedelta(hours=(hour * 1)))
+                        tempStorage['temperatureRange'][timeStamp] = hilow
+                        tempStorage['low'][timeStamp] = low
+                        tempStorage['lowIndex'][timeStamp] = lowIndex
+                        tempStorage['high'][timeStamp] = high
+                        tempStorage['highIndex'][timeStamp] = highIndex
+                                               
                     #print("Storing", workingOnDay, dayHiLows[workingOnDay])
                     high = None
                     highIndex = 0
@@ -211,6 +227,7 @@ class CommandInterpreter:
                     lowIndex = 0
                     index = 0
                     workingOnDay = candidateDay
+                    firstSampleOfTheDay = APITimeStringToTime(currentPeriod['startTime'])
 
             candidateTemp = currentPeriod['temperature']
             if high == None:
@@ -229,22 +246,19 @@ class CommandInterpreter:
             if currentPeriod['windSpeed'] < 0 or currentPeriod['windSpeed'] > 299:
                 dontUpdate = True
 
-        if highIndex > lowIndex:
-            dayHiLows[workingOnDay] = str(low) + u'\xc2\xb0' + "/" + str(high) + u'\xc2\xb0'
-        else:
-            dayHiLows[workingOnDay] = str(high) + u'\xc2\xb0' + "/" + str(low) + u'\xc2\xb0'
-            
         #print(dayHiLows)
         if dontUpdate:
             return workingObject
-        for day in self.allDays:
-            if day in dayHiLows:
-                for hour in [ " 00", " 01", " 02", " 03", " 04", " 05", " 06", " 07", " 08", " 09", " 10", " 11",
-                              " 12", " 13", " 14", " 15", " 16", " 17", " 18", " 19", " 20", " 21", " 22", " 23" ]:
-                    self.results['hiLow'][ day + hour + ":00" ] = dayHiLows[day]
 
+        self.results['forecastInfo']['temperatureRange'] = tempStorage['temperatureRange']
+        self.results['forecastInfo']['highTemp'] = tempStorage['high']
+        self.results['forecastInfo']['lowTemp'] = tempStorage['low']
+        self.results['forecastInfo']['foundIndexHigh'] = tempStorage['highIndex']
+        self.results['forecastInfo']['foundIndexLow'] = tempStorage['lowIndex']
+        
         self.results['display']['time'] = time.strftime("%a %b %d %Y %H:%M", emulatorTime.timetuple())
-        self.results['display']['range'] = self.results['hiLow'][time.strftime("%a %H:00", emulatorTime.timetuple())]
+        print(temperatureSampleTime, type(temperatureSampleTime))
+        self.results['display']['range'] = tempStorage['temperatureRange'][timeInClientFormatAscii(APITimeStringToTime(temperatureSampleTime))]
         self.results['display']['wind'] = direction + " @ " + str(windSpeed)
         self.results['display']['description'] = description
         return workingObject
@@ -294,7 +308,11 @@ def APITimeStringToTime (APITimeString):
         return emulatorTime
     else:
         return None
-    
+
+def timeInClientFormatAscii(timeObject):
+    reformattedTime = timeObject.strftime("%a %b %d %Y %H:%M:%S GMT%z (Hawaii-Aleutian Standard Time)")
+    return reformattedTime
+
 def main():
     '''
     main program

@@ -1,5 +1,6 @@
 {
     "emulatorTime" : "2019-12-31T05:01:00-10:00",
+    "fileName" : "hourly.Template", 
     "@context": [
         "https://raw.githubusercontent.com/geojson/geojson-ld/master/contexts/geojson-base.jsonld",
         {

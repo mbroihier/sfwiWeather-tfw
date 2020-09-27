@@ -1,7 +1,7 @@
 var config = {
      protocol     : "http:",
      port         : 3030,
-     forecastURL  : "sfwiWeather",
+     forecastURL  : "localhost",
      forecastPath : "/gridpoints/HFO/153,144/forecast/hourly",
      radarStation : "HMO",
      zone         : "HIC003",

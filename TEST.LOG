@@ -254,3 +254,68 @@ This is rerun using commit 712dd7a.  This version better regulates the request i
 Results: PASSED
 Test End Time: 2/10/2020 16:40 CST
 Tester: Mark Broihier
+ID:HILOW-0000
+Test Start Time: 9/27/2020 14:12 CDT
+Log data:
+This set of automated test cases was modified to support the new algorithm being used to be more tolerant of API forecast errors (stale data).
+
+They all passed.
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0010
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0020
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0030
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0040
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0050
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0060
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0070
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
+ID:HILOW-0080
+Test Start Time: 9/27/2020 14:15 CDT
+Log data:
+see HILOW-0000 log
+Results: PASSED
+Test End Time: 9/27/2020 14:15 CDT
+Tester: Mark Broihier
